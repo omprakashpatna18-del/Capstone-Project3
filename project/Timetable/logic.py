@@ -1,21 +1,37 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi import APIRouter
-from fastapi.templating import Jinja2Templates
+from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 import uvicorn
 import random
 
 router = APIRouter()
 
-# Jinja2 templates setup (assuming aapki HTML files 'templates' folder mein hain)
-templates = Jinja2Templates(directory="templates")
 
-# LOGIC
+class TimetableData(BaseModel):
+    days: int
+    subjects: str
+    weak: str = ""
+    strong: str = ""
+    start: str
+    duration: int
+    break_after: int
+    break_duration: int
+    study_hours: int
+    break_hours: int
+    b_start: str = None
+    b_end: str = None
+    l_start: str = None
+    l_end: str = None
+    d_start: str = None
+    d_end: str = None
+
+
 def generate_timetable(data):
 
     def to_min(t):
+        if not t: return None
         try:
-            h, m = map(int, t.split(":"))
+            h, m = map(int, str(t).split(":"))
             return h * 60 + m
         except:
             return None
@@ -61,6 +77,139 @@ def generate_timetable(data):
     }
 
     output = []
+
+    def pick_subject():
+        r = random.random()
+        if r < 0.5 and weak:
+            return random.choice(weak)
+        elif r < 0.8 and normal:
+            return random.choice(normal)
+        elif strong:
+            return random.choice(strong)
+        return subjects[0]
+
+    for d in range(1, days + 1):
+        output.append(f"DAY {d}")
+
+        current = start
+        end_day = start + 1440
+
+        session_count = 0
+        meal_done = {k: False for k in meals}
+        total_study_done = 0
+        total_break_done = 0
+
+        while current < end_day:
+
+            if (
+                total_study_done >= study_minutes_goal
+                and total_break_done >= break_minutes_goal
+            ):
+                break
+
+            # MEALS 
+            for name, (s, e) in meals.items():
+                if (
+                    s is not None
+                    and not meal_done[name]
+                    and s <= current < e
+                ):
+                    output.append(
+                        f"{name}: {format_time(current)} - {format_time(e)}"
+                    )
+                    current = e
+                    meal_done[name] = True
+
+            # STUDY
+            if total_study_done < study_minutes_goal:
+
+                subject = pick_subject()
+                duration = base_duration
+
+                if subject in weak:
+                    duration += 15
+                elif subject in strong:
+                    duration -= 10
+
+                duration = max(
+                    25,
+                    min(duration, study_minutes_goal - total_study_done)
+                )
+
+                meal_interrupted = False
+
+                for name, (s, e) in meals.items():
+                    if (
+                        s is not None
+                        and not meal_done[name]
+                        and current < s < current + duration
+                    ):
+                        output.append(
+                            f"{subject.title()}: {format_time(current)} - {format_time(s)}"
+                        )
+
+                        total_study_done += (s - current)
+                        current = s
+
+                        output.append(
+                            f"{name}: {format_time(current)} - {format_time(e)}"
+                        )
+
+                        current = e
+                        meal_done[name] = True
+                        session_count += 1
+                        meal_interrupted = True
+                        break
+
+                if meal_interrupted:
+                    continue
+
+                output.append(
+                    f"{subject.title()}: {format_time(current)} - {format_time(current + duration)}"
+                )
+
+                current += duration
+                total_study_done += duration
+                session_count += 1
+
+                if session_count >= break_after:
+                    b = min(
+                        base_break,
+                        break_minutes_goal - total_break_done
+                    )
+
+                    output.append(
+                        f"Break: {format_time(current)} - {format_time(current + b)}"
+                    )
+
+                    current += b
+                    total_break_done += b
+                    session_count = 0
+
+        output.append(f"Summary: {total_study_done//60}h study")
+
+    return output
+
+# --- API ROUTES ---
+
+# 3. Yahan HTML ki jagah JSON return hoga
+@router.post("/api/timetable")
+async def create_timetable(data: TimetableData):
+    # Pydantic model ko dictionary mein convert karein
+    data_dict = data.dict()
+    
+    # Logic function call karein
+    timetable_result = generate_timetable(data_dict)
+    
+    # Frontend ko JSON format mein data bhejein
+    return {"timetable": timetable_result}
+
+# Router ko app mein add karein
+app.include_router(router)
+
+# RUN 
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)    output = []
 
     def pick_subject():
         r = random.random()
@@ -367,19 +516,14 @@ if __name__ == "__main__":
 
 # ROUTES 
 
-@router.get("/", response_class=HTMLResponse)
-async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
-
-
-@router.post("/result", response_class=HTMLResponse)
-async def result(request: Request):
-    # Form data parse karna FastAPI mein async hota hai
-    form_data = await request.form()
-    data = dict(form_data)
+@router.post("/")
+async def create_timetable(data: TimetableData):
     
-    timetable = generate_timetable(data)
-    return templates.TemplateResponse("result.html", {"request": request, "timetable": timetable})
+    data_dict = data.dict()
+    
+    timetable_result = generate_timetable(data_dict)
+
+    return {"timetable": timetable_result}
 
 
 @router.get("/stats", response_class=HTMLResponse)
@@ -387,8 +531,4 @@ async def stats(request: Request):
     return templates.TemplateResponse("stats.html", {"request": request})
 
 
-# RUN 
 
-if __name__ == "__main__":
-    # FastAPI uvicorn server use karta hai run hone ke liye
-    uvicorn.run("main:logic", host="127.0.0.1", port=8000, reload=True)
