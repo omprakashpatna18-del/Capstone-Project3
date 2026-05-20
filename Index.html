@@ -109,6 +109,137 @@
             <label>Strong Subjects</label>
             <input name="strong" placeholder="subjects you are good at">
         </div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Timetable Generator</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        small {
+            color: gray;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .output {
+            margin-top: 30px;
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 10px;
+            display: none; /* Default hidden rahega, data aane par dikhega */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .warning {
+            background: #ffe6e6;
+            color: #a94442;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+        }
+        
+        /* Timetable UI design */
+        .day-header {
+            background: #667eea;
+            color: white;
+            padding: 8px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        .task-row {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📅 Smart Timetable Generator</h1>
+
+    <!-- FORM action aur method hata diye gaye -->
+    <form id="timetableForm">
+        <!-- BASIC -->
+        <div class="section">
+            <h3>📌 Basic Planning</h3>
+
+            <label>How many days do you want to plan?</label>
+            <input name="days" type="number" placeholder="e.g. 7" value="7">
+
+            <label>Subjects (comma separated)</label>
+            <input name="subjects" placeholder="math, science, english" value="math, science">
+
+            <label>Weak Subjects</label>
+            <input name="weak" placeholder="subjects you struggle with">
+
+            <label>Strong Subjects</label>
+            <input name="strong" placeholder="subjects you are good at">
+        </div>
 
         <!-- STUDY -->
         <div class="section">
@@ -117,34 +248,34 @@
             <div class="grid">
                 <div>
                     <label>Start Time (HH:MM)</label>
-                    <input name="start" placeholder="08:00">
+                    <input name="start" placeholder="08:00" value="08:00">
                     <small>When your day begins</small>
                 </div>
 
                 <div>
                     <label>Session Duration (minutes)</label>
-                    <input name="duration" placeholder="60">
+                    <input name="duration" type="number" placeholder="60" value="60">
                     <small>Length of one study session</small>
                 </div>
 
                 <div>
                     <label>Break After How Many Sessions?</label>
-                    <input name="break_after" placeholder="2">
+                    <input name="break_after" type="number" placeholder="2" value="2">
                 </div>
 
                 <div>
                     <label>Break Duration (minutes)</label>
-                    <input name="break_duration" placeholder="15">
+                    <input name="break_duration" type="number" placeholder="15" value="15">
                 </div>
 
                 <div>
                     <label>Total Study Time (hours)</label>
-                    <input name="study_hours" placeholder="6">
+                    <input name="study_hours" type="number" placeholder="6" value="6">
                 </div>
 
                 <div>
                     <label>Total Break Time (hours)</label>
-                    <input name="break_hours" placeholder="1">
+                    <input name="break_hours" type="number" placeholder="1" value="1">
                 </div>
             </div>
         </div>
@@ -156,32 +287,32 @@
             <div class="grid">
                 <div>
                     <label>Breakfast Start (HH:MM)</label>
-                    <input name="b_start">
+                    <input name="b_start" placeholder="e.g. 09:00">
                 </div>
 
                 <div>
                     <label>Breakfast End (HH:MM)</label>
-                    <input name="b_end">
+                    <input name="b_end" placeholder="e.g. 09:30">
                 </div>
 
                 <div>
                     <label>Lunch Start (HH:MM)</label>
-                    <input name="l_start">
+                    <input name="l_start" placeholder="e.g. 13:00">
                 </div>
 
                 <div>
                     <label>Lunch End (HH:MM)</label>
-                    <input name="l_end">
+                    <input name="l_end" placeholder="e.g. 13:45">
                 </div>
 
                 <div>
                     <label>Dinner Start (HH:MM)</label>
-                    <input name="d_start">
+                    <input name="d_start" placeholder="e.g. 20:00">
                 </div>
 
                 <div>
                     <label>Dinner End (HH:MM)</label>
-                    <input name="d_end">
+                    <input name="d_end" placeholder="e.g. 20:45">
                 </div>
             </div>
         </div>
@@ -189,20 +320,89 @@
         <!-- WARNINGS -->
         <div id="warnings"></div>
 
-        <button type="submit">✨ Generate My Timetable</button>
+        <!-- Type ko 'button' banaya aur onclick event lagaya -->
+        <button type="button" onclick="submitForm()">✨ Generate My Timetable</button>
     </form>
 
-    {% if timetable %}
-    <div class="output">
+    <!-- Jinja2 ko hata kar ek khali div lagaya, Jisme JS data dale ga -->
+    <div class="output" id="timetableResultBox">
         <h3>📋 Your Timetable</h3>
-        {% for line in timetable %}
-            {{ line }}<br>
-        {% endfor %}
+        <div id="timetableContent"></div>
     </div>
-    {% endif %}
 </div>
 
 <script>
+// 1. Apna render URL yahan update karein (Last me slash / mat lagana)
+const BACKEND_URL = "https://aapka-backend-api.onrender.com";
+
+async function submitForm() {
+    // 2. Form se data collect karna
+    const data = {
+        days: parseInt(document.querySelector('[name="days"]').value) || 1,
+        subjects: document.querySelector('[name="subjects"]').value || "",
+        weak: document.querySelector('[name="weak"]').value || "",
+        strong: document.querySelector('[name="strong"]').value || "",
+        start: document.querySelector('[name="start"]').value || "08:00",
+        duration: parseInt(document.querySelector('[name="duration"]').value) || 60,
+        break_after: parseInt(document.querySelector('[name="break_after"]').value) || 2,
+        break_duration: parseInt(document.querySelector('[name="break_duration"]').value) || 15,
+        study_hours: parseInt(document.querySelector('[name="study_hours"]').value) || 6,
+        break_hours: parseInt(document.querySelector('[name="break_hours"]').value) || 1,
+        b_start: document.querySelector('[name="b_start"]').value || "",
+        b_end: document.querySelector('[name="b_end"]').value || "",
+        l_start: document.querySelector('[name="l_start"]').value || "",
+        l_end: document.querySelector('[name="l_end"]').value || "",
+        d_start: document.querySelector('[name="d_start"]').value || "",
+        d_end: document.querySelector('[name="d_end"]').value || ""
+    };
+
+    try {
+        // 3. Backend (Render) ko data bhejna
+        const res = await fetch(`${BACKEND_URL}/timetable`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+            throw new Error(`Server Error: ${res.status}`);
+        }
+
+        const result = await res.json();
+        
+        // 4. Data ko screen par print karna (Design ke sath)
+        let contentBox = document.getElementById('timetableContent');
+        let htmlContent = "";
+
+        result.timetable.forEach(line => {
+            if (line.includes("DAY")) {
+                htmlContent += `<h3 class="day-header">${line}</h3>`;
+            } else if (line.includes("Summary:")) {
+                htmlContent += `<strong><br>${line}</strong>`;
+            } else {
+                let parts = line.split(": ");
+                let activity = parts[0];
+                let time = parts.length > 1 ? parts[1] : "";
+                
+                htmlContent += `
+                    <div class="task-row">
+                        <span><strong>${activity}</strong></span>
+                        <span>${time}</span>
+                    </div>`;
+            }
+        });
+
+        contentBox.innerHTML = htmlContent;
+        
+        // Output box ko show kar do
+        document.getElementById('timetableResultBox').style.display = 'block';
+
+    } catch (err) {
+        alert("Backend connect nahi ho paya! " + err.message);
+    }
+}
+
+// (Warning Logic Same hai)
 function toMinutes(t) {
     if (!t) return null;
     let parts = t.split(":");
