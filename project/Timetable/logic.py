@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 import uvicorn
 import random
 
-logic = FastAPI()
+router = APIRouter()
 
 # Jinja2 templates setup (assuming aapki HTML files 'templates' folder mein hain)
 templates = Jinja2Templates(directory="templates")
@@ -179,12 +179,12 @@ def generate_timetable(data):
 
 # ROUTES 
 
-@logic.get("/", response_class=HTMLResponse)
+@router.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("Index.html", {"request": request})
 
 
-@logic.post("/result", response_class=HTMLResponse)
+@router.post("/result", response_class=HTMLResponse)
 async def result(request: Request):
     # Form data parse karna FastAPI mein async hota hai
     form_data = await request.form()
@@ -194,7 +194,7 @@ async def result(request: Request):
     return templates.TemplateResponse("result.html", {"request": request, "timetable": timetable})
 
 
-@logic.get("/stats", response_class=HTMLResponse)
+@router.get("/stats", response_class=HTMLResponse)
 async def stats(request: Request):
     return templates.TemplateResponse("stats.html", {"request": request})
 
