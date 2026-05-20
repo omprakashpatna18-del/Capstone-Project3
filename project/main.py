@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from predictor.app import router as predictor_router
 from bot.bot import router as bot_router
+from timtable.logic import router as timetable_router
 
 app = FastAPI()
 app.add_middleware(
@@ -23,6 +24,7 @@ app.add_middleware(
 # Dono ko "include" kar lo
 app.include_router(predictor_router, prefix="/predict")
 app.include_router(bot_router, prefix="/chat")
+app.include_router(timetable_router,prefix="/timetable")
 @app.api_route("/", methods=["GET", "HEAD"])
 async def health_check():
     return {"status": "online"}
