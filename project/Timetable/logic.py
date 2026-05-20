@@ -1,10 +1,15 @@
-from flask import Flask, render_template, request
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+import uvicorn
 import random
 
-logic = Flask(__name__)
+logic = FastAPI()
+
+# Jinja2 templates setup (assuming aapki HTML files 'templates' folder mein hain)
+templates = Jinja2Templates(directory="templates")
 
 # LOGIC
-
 def generate_timetable(data):
 
     def to_min(t):
@@ -123,25 +128,82 @@ def generate_timetable(data):
                         s is not None
                         and not meal_done[name]
                         and current < s < current + duration
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
-import uvicorn
-import random
+                    ):
+                        output.append(
+                            f"{subject.title()}: {format_time(current)} - {format_time(s)}"
+                        )
 
-logic = FastAPI()
+                        total_study_done += (s - current)
+                        current = s
 
-# Jinja2 templates setup (assuming aapki HTML files 'templates' folder mein hain)
-templates = Jinja2Templates(directory="templates")
+                        output.append(
+                            f"{name}: {format_time(current)} - {format_time(e)}"
+                        )
 
-# LOGIC
-def generate_timetable(data):
+                        current = e
+                        meal_done[name] = True
 
-    def to_min(t):
-        try:
-            h, m = map(int, t.split(":"))
-            return h * 60 + m
-        except:
+                        session_count += 1
+                        meal_interrupted = True
+                        break
+
+                if meal_interrupted:
+                    continue
+
+                output.append(
+                    f"{subject.title()}: {format_time(current)} - {format_time(current + duration)}"
+                )
+
+                current += duration
+                total_study_done += duration
+                session_count += 1
+
+                if session_count >= break_after:
+                    b = min(
+                        base_break,
+                        break_minutes_goal - total_break_done
+                    )
+
+                    output.append(
+                        f"Break: {format_time(current)} - {format_time(current + b)}"
+                    )
+
+                    current += b
+                    total_break_done += b
+                    session_count = 0
+
+        output.append(f"Summary: {total_study_done//60}h study")
+
+    return output
+
+
+# ROUTES 
+
+@logic.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
+
+
+@logic.post("/result", response_class=HTMLResponse)
+async def result(request: Request):
+    # Form data parse karna FastAPI mein async hota hai
+    form_data = await request.form()
+    data = dict(form_data)
+    
+    timetable = generate_timetable(data)
+    return templates.TemplateResponse("result.html", {"request": request, "timetable": timetable})
+
+
+@logic.get("/stats", response_class=HTMLResponse)
+async def stats(request: Request):
+    return templates.TemplateResponse("stats.html", {"request": request})
+
+
+# RUN 
+
+if __name__ == "__main__":
+    # FastAPI uvicorn server use karta hai run hone ke liye
+    uvicorn.run("main:logic", host="127.0.0.1", port=8000, reload=True)        except:
             return None
 
     def format_time(m):
