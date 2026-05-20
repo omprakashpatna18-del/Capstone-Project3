@@ -526,9 +526,9 @@ async def create_timetable(data: TimetableData):
     return {"timetable": timetable_result}
 
 
-@router.get("/stats", response_class=HTMLResponse)
-async def stats(request: Request):
-    return templates.TemplateResponse("stats.html", {"request": request})
+#@router.get("/stats", response_class=HTMLResponse)
+#async def stats(request: Request):
+    #return templates.TemplateResponse("stats.html", {"request": request})
 
 
 
