@@ -361,33 +361,6 @@ async function submitForm() {
         }
 
         const result = await res.json();
-        
-        // 4. Data ko screen par print karna (Design ke sath)
-        let contentBox = document.getElementById('timetableContent');
-        let htmlContent = "";
-
-        result.timetable.forEach(line => {
-            if (line.includes("DAY")) {
-                htmlContent += `<h3 class="day-header">${line}</h3>`;
-            } else if (line.includes("Summary:")) {
-                htmlContent += `<strong><br>${line}</strong>`;
-            } else {
-                let parts = line.split(": ");
-                let activity = parts[0];
-                let time = parts.length > 1 ? parts[1] : "";
-                
-                htmlContent += `
-                    <div class="task-row">
-                        <span><strong>${activity}</strong></span>
-                        <span>${time}</span>
-                    </div>`;
-            }
-        });
-
-        contentBox.innerHTML = htmlContent;
-        
-        // Output box ko show kar do
-        document.getElementById('timetableResultBox').style.display = 'block';
 
     } catch (err) {
         alert("Backend connect nahi ho paya! " + err.message);
