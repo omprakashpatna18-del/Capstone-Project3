@@ -50,7 +50,7 @@ window.onload = async function() {
 
     try {
     
-        const res = await fetch(`${BACKEND_URL}/timetable`, {
+        const res = await fetch(`${BACKEND_URL}/timetable/`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
