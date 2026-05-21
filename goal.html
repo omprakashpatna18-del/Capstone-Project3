@@ -6,6 +6,15 @@
   <title>Goal Planner</title>
 
   <style>
+    /* 1. MISSING VARIABLES FIX */
+    :root {
+      --accent: #7c3aed;
+      --accent2: #0ea5e9;
+      --text: #222222;
+      --muted: #666666;
+      --border: #e3e6ee;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background: #f5f7fb;
@@ -34,7 +43,7 @@
     }
     nav {
       width: 100%;
-      max-width: 850px; /* Aligned with container */
+      max-width: 850px;
       margin: auto;
       position: relative;
       z-index: 10;
@@ -47,7 +56,7 @@
     }
 
     .nav-brand {
-      font-size: 16px; /* Slightly bigger to match Arial */
+      font-size: 16px;
       font-weight: 700;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
@@ -56,7 +65,7 @@
       letter-spacing: 0.3px;
     }
 
-    .nav-links { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0;}
+    .nav-links { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0; }
     .nav-links a {
       color: var(--muted);
       text-decoration: none;
@@ -142,17 +151,18 @@
 
 <body>
   <nav>
-  <div class="nav-brand">✦ AcadBoost</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html" class="active">Predictor</a></li>
-    <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-   <li><a href="Chart.html">Dashboard</a></li>
-   <li><a href="goal.html">Set Your Goal</a>
-   <li><a href="Index.html">Get Timetable</a>
-   <li><a href="Bot.html">Ask Me</a></li>
-  </ul>
+    <div class="nav-brand">✦ AcadBoost</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="predict.html">Predictor</a></li>
+      <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+      <li><a href="Chart.html">Dashboard</a></li>
+      <li><a href="goal.html" class="active">Set Your Goal</a></li>
+      <li><a href="index.html">Get Timetable</a></li> 
+      <li><a href="Bot.html">Ask Me</a></li>
+    </ul>
   </nav>
+
   <div class="container">
     <h1>Goal Planner</h1>
     <p class="small">Plan goals between dates, add tasks, and track progress.</p>
