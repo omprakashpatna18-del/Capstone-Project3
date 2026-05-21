@@ -317,43 +317,461 @@
     color: var(--accent);
   }
 </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saraswati AcadBoost</title>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+  /* ===== Scrollbar for WebKit browsers (Chrome, Edge, Safari) ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212; /* dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e; /* dark gray thumb */
+  border-radius: 6px;
+  border: 2px solid #121212; /* adds spacing effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444; /* lighter on hover */
+}
+
+/* ===== Scrollbar for Firefox ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2e2e2e #121212;
+}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #06000f;
+    --accent: #b46fff;
+    --accent2: #5ee7ff;
+    --accent3: #ff6eb4;
+    --text: #f0e6ff;
+    --muted: #9b84b8;
+    --border: rgba(180,100,255,0.2);
+    --card: rgba(255,255,255,0.05);
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .image1{
+      background-image: url(1.png);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      border-radius: 20px;
+
+  }
+  
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background:var(--bg);
+    border-bottom: 1px solid var(--border);
+    border-radius: 20px;
+    margin: 30px 10px 30px 10px;
+    border: 4px solid firebrick;
+    box-shadow: 0px 0 60px springgreen;
+
+  }
+
+  .nav-logo {
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 5px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+    margin: 20px;
+  }
+
+  .nav-links a:hover { 
+    color: rgb(255, 0, 0);
+    font-weight: bold;
+    font-size: 15px;
+    
+  }
+
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 70px 24px 50px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background:  rgba(6,0,15,0.7);
+    border: 2px solid goldenrod;
+    border-radius: 30px;
+    padding: 10px 16px;
+    font-family: 'Poppins', monospace;
+    font-size: 10px;
+    color: greenyellow;
+    box-shadow: 0px 0px 20px firebrick;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 10px; height: 10px;
+    background: red;
+    border: none;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+   
+  
+  @keyframes pulse{
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.3; transform:scale(0.6); }
+  }
+
+ 
+
+  .hero h1{
+    display: flex;
+    position: relative;
+    margin-left: 520px;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    background: rgba(6,0,15,0.7);
+    width: 20vw;
+    padding: 20px;
+    color: lawngreen;
+    margin-bottom: 20px;
+    border-radius: 20px;
+  }
+
+  .hero-desc {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin: 30px 350px;
+    padding: 5px;
+    font-size: 15px;
+    background: rgba(6,0,15,0.7);
+    color: greenyellow;
+    border-radius: 20px;
+    line-height: 1;
+    font-weight: bold;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    padding: 13px 30px;
+    background: red;
+    border-radius: 30px;
+    color: greenyellow;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 5px solid lawngreen;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 40px gold;
+  }
+
+  .hero-btn:hover {
+    background: var(--bg);
+    color: red;
+    font-weight: bold;
+    border: 5px solid red;
+    box-shadow: 0 0 50px firebrick;
+  }
+
+  /* ── DIVIDER ── */
+  /* .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 10px 24px;
+    position: relative;
+    z-index: 1;
+  } */
+
+  /* ── SECTION ── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 40px 24px;
+    max-width: 700px;
+    margin: 50px 350px;
+    background-image: url(3.png);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      border-radius: 20px;
+  }
+
+  
+
+  .section h2 {
+    
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 200px 20px 200px;
+    padding: 5px 5px 5px 10px;
+    border-radius: 20px;
+    color: red;
+    background-color:  rgba(6,0,15);
+  }
+
+  .section p {
+    font-size: 15px;
+    color: lawngreen;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    font-weight: bold;
+    padding: 10px;
+    background-color:  rgba(6,0,15,0.8);
+    text-align: center;
+    border-radius: 10px;
+  }
+  .section1{
+    position: relative;
+    z-index: 1;
+    padding: 60px 24px;
+    max-width: 700px;
+    margin: 50px 350px;
+    background-image: url(5.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-radius: 20px;
+  }
+
+  
+
+  .section1 h2 {
+    
+    font-size: 22px;
+    font-weight: 700;
+    margin: 10px 100px 20px 100px;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+    border-radius: 20px;
+    color: red;
+    background-color:  rgba(6,0,15);
+  }
+
+  .section1 p {
+    font-size: 15px;
+    color: lawngreen;
+    line-height: 1.8;
+    margin-bottom: 14px;
+    font-weight: bold;
+    padding: 10px;
+    background-color:  rgba(6,0,15,0.8);
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  /* ── GLASS CARD ── */
+  .glass-card {
+    background-image: url(4.png);
+    background-position: center;
+    background-attachment: fixed;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 0 10px rgba(180,100,255,0.2);
+    position: relative;
+    z-index: 1;
+    margin: 30px;
+    width:75%;
+    max-width: 700px;
+    left:0;
+    right:0;
+  }
+  .glass-card h2{
+    position: relative;
+    text-align: center;
+    background: var(--bg);
+    color: lawngreen;
+    border-radius: 20px;
+  }
+
+  /* ── FEATURES GRID ── */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+
+  .feature-item {
+    background: rgba(6,0,15,0.8);
+    border: 1px solid rgba(180,100,255,0.15);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .feature-item:hover {
+    background: rgba(180,100,255,0.08);
+    border-color: rgba(180,100,255,0.35);
+  }
+
+  .feature-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .feature-text {
+    font-size: 15px;
+    color: lawngreen;
+    line-height: 1.5;
+  }
+
+  .feature-text strong {
+    display: block;
+    color: red;
+    font-size: 20px;
+    margin-bottom: 2px;
+
+  }
+
+  /* ── PREDICTION OUTPUT ── */
+  .predict-box {
+    background:  rgba(6,0,15,0.8);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 20px;
+    display: flex;
+    border: 1px solid rgba(180,100,255,0.15);
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 0 10px rgba(180,100,255,0.2);
+  }
+
+  .predict-icon { font-size: 30px; }
+
+  .predict-text strong {
+    display: block;
+    font-size: 20px;
+    color: rgb(255, 49, 49);
+    margin-bottom: 5px;
+
+  }
+
+  .predict-text span {
+    font-size: 15px;
+    font-weight: bold;
+    color: lawngreen;
+    line-height: 1.6;
+  }
+
+  .predict-box:hover {
+    background: rgba(180,100,255,0.08);
+    border-color: rgba(180,100,255,0.35);
+  }
+
+  /* ── FOOTER ── */
+ .footer{
+    position: relative;
+    z-index: 1;
+    width: 100vh;
+    text-align: center;
+    margin: 10px 300px 20px 350px;
+    border-bottom: 5px solid rgb(163, 0, 0);
+    box-shadow: 0 0px 40px greenyellow;
+    padding: 10px 10px;
+    border-top: 1px solid var(--border);
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+    background-color: var(--bg);
+    border-radius: 20px;
+    
+
+  }
+
+  .footer span {
+    color: var(--accent2);
+    font-size: 20px;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
 
-<!-- Background -->
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
 
 <!-- Navbar -->
 <nav>
-  <div class="nav-brand">✦ AcadBoost</div>
+  <div class="nav-logo">✦ Saraswati AcadBoost</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html" class="active">Predictor</a></li>
+    <li><a href="predict.html">Predict</a></li>
     <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-   <li><a href="Chart.html">Dashboard</a></li>
-   <li><a href="goal.html">Set Your Goal</a></li>
-   <li><a href="Index.html">Get Timetable</a></li>
+    <li><a href="Chart.html">Dashboard</a></li>
    <li><a href="Bot.html">Ask Me</a></li>
+    
   </ul>
 </nav>
-
+<div class="image1">
 <!-- Hero -->
 <div class="hero">
   <div class="hero-badge">AI Powered Platform</div>
-  <h1>Saraswati<br>AcadBoost</h1>
+  <h1>Saraswati AcadBoost</h1>
   <p class="hero-desc">
-    An educational platform that leverages AI for predicting and assessing student performance with data-driven insights.
+    An educational platform that leverages AI for predicting and <br> assessing student performance with data-driven insights.
   </p>
   <a href="predict.html" class="hero-btn">✦ Predict My Score</a>
 </div>
-
+</div>
 <div class="divider"></div>
 
 <!-- About Section -->
 <div class="section">
-  <div class="section-label">// About</div>
+  
   <h2>Why AcadBoost?</h2>
   <p>
     In today's education system, predicting student academic performance has become essential for improving learning outcomes and reducing failure rates.
@@ -366,10 +784,10 @@
 <div class="divider"></div>
 
 <!-- Features Card -->
-<div style="width:100%; display:flex; justify-content:center; padding:30px 16px;">
-<div class="glass-card" style="padding: 28px; margin: 0 24px;">
-  <div class="section-label">// What We Analyze</div>
-  <h2 style="font-size:18px; margin-bottom:16px; color:#fff;">Factors We Consider</h2>
+<div style="width:100%; display:flex; justify-content:center; padding:30px 20px;">
+<div class="glass-card">
+  
+  <h2>Factors We Consider</h2>
 
   <div class="features">
     <div class="feature-item">
@@ -421,8 +839,8 @@
 <div class="divider" style="margin-top:40px;"></div>
 
 <!-- Mission -->
-<div class="section">
-  <div class="section-label">// Mission</div>
+<div class="section1">
+  
   <h2>Helping Educators & Students</h2>
   <p>
     The system aims to assist teachers and academic advisors in providing data-driven support and personalized interventions — ensuring no student is left behind.
@@ -430,11 +848,13 @@
 </div>
 
 <!-- Footer -->
-<Footer>
-  Built with ♥ · <span>Saraswati AcadBoost</span> · AI-Powered Education
-</footer>
+<div class="footer">
+  Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+</div>
 
 </body>
 </html>
+
+  
 
   
