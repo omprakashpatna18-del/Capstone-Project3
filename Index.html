@@ -324,50 +324,6 @@
     </form>
 
 <script>
-
-const BACKEND_URL = "https://aapka-backend-api.onrender.com";
-
-async function submitForm() {
-    
-    const data = {
-        days: parseInt(document.querySelector('[name="days"]').value) || 1,
-        subjects: document.querySelector('[name="subjects"]').value || "",
-        weak: document.querySelector('[name="weak"]').value || "",
-        strong: document.querySelector('[name="strong"]').value || "",
-        start: document.querySelector('[name="start"]').value || "08:00",
-        duration: parseInt(document.querySelector('[name="duration"]').value) || 60,
-        break_after: parseInt(document.querySelector('[name="break_after"]').value) || 2,
-        break_duration: parseInt(document.querySelector('[name="break_duration"]').value) || 15,
-        study_hours: parseInt(document.querySelector('[name="study_hours"]').value) || 6,
-        break_hours: parseInt(document.querySelector('[name="break_hours"]').value) || 1,
-        b_start: document.querySelector('[name="b_start"]').value || "",
-        b_end: document.querySelector('[name="b_end"]').value || "",
-        l_start: document.querySelector('[name="l_start"]').value || "",
-        l_end: document.querySelector('[name="l_end"]').value || "",
-        d_start: document.querySelector('[name="d_start"]').value || "",
-        d_end: document.querySelector('[name="d_end"]').value || ""
-    };
-
-    try {
-        
-        const res = await fetch(`${BACKEND_URL}/timetable`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-
-        if (!res.ok) {
-            throw new Error(`Server Error: ${res.status}`);
-        }
-
-        const result = await res.json();
-
-    } catch (err) {
-        alert("Backend connect nahi ho paya! " + err.message);
-    }
-}
-
-
 function toMinutes(t) {
     if (!t) return null;
     let parts = t.split(":");
@@ -431,6 +387,31 @@ function showWarnings() {
 document.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", showWarnings);
 });
+
+async function submitForm() {
+    
+    const data = {
+        days: parseInt(document.querySelector('[name="days"]').value) || 1,
+        subjects: document.querySelector('[name="subjects"]').value || "",
+        weak: document.querySelector('[name="weak"]').value || "",
+        strong: document.querySelector('[name="strong"]').value || "",
+        start: document.querySelector('[name="start"]').value || "08:00",
+        duration: parseInt(document.querySelector('[name="duration"]').value) || 60,
+        break_after: parseInt(document.querySelector('[name="break_after"]').value) || 2,
+        break_duration: parseInt(document.querySelector('[name="break_duration"]').value) || 15,
+        study_hours: parseInt(document.querySelector('[name="study_hours"]').value) || 6,
+        break_hours: parseInt(document.querySelector('[name="break_hours"]').value) || 1,
+        b_start: document.querySelector('[name="b_start"]').value || "",
+        b_end: document.querySelector('[name="b_end"]').value || "",
+        l_start: document.querySelector('[name="l_start"]').value || "",
+        l_end: document.querySelector('[name="l_end"]').value || "",
+        d_start: document.querySelector('[name="d_start"]').value || "",
+        d_end: document.querySelector('[name="d_end"]').value || ""
+    };
+
+sessionStorage.setItem("timetableFormData", JSON.stringify(data));
+window.location.href = "result.html";
+    
 </script>
 
 </body>
