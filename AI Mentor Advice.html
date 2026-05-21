@@ -95,16 +95,166 @@
   }
   .container h2 {
   color: white;
-  font-size: 22px;
-  font-weight: 700;
-  text-align:left;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saraswati AcadBoost</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+  /* ===== Scrollbar for WebKit browsers (Chrome, Edge, Safari) ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #121212; /* dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e; /* dark gray thumb */
+  border-radius: 6px;
+  border: 2px solid #121212; /* adds spacing effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444; /* lighter on hover */
+}
+
+/* ===== Scrollbar for Firefox ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2e2e2e #121212;
+}
+ 
+
+  :root {
+    --bg: #06000f;
+    --accent: #b46fff;
+    --accent2: #5ee7ff;
+    --accent3: #ff6eb4;
+    --text: #f0e6ff;
+    --muted: #9b84b8;
+    --border: rgba(180,100,255,0.2);
+    --card: rgba(255,255,255,0.05);
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    background-image: url(2.png);
+    background-size: cover;
+    background-position: bottom;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 40px;
+    position: relative;
+    overflow-x: hidden;
+  } 
+ 
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 50px 30px 570px;
+    background: #0d0b1a ;
+    border: 2px solid #f700ff;
+    box-shadow: -5px -5px 100px rgb(0, 247, 255);
+    border-radius: 20px;
+
+  }
+
+  .nav-logo {
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: left;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: lawngreen;}
+  
+  .glass-card {
+    
+    background: var(--bg);
+    color:var(--text);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 0px 20px 10px 20px;
+    box-shadow: -10px 0px 50px rgba(255, 1, 1, 0.6);
+    position: relative;
+    z-index: 1;
+    margin: 10px 80px 10px 600px;
+    width: 100vw;
+    height: 70vh;
+    max-width: 700px;
+    overflow-y: scroll;
+    
+
+  }
+  
+  .container h2 {
+  display: flex;
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  border-radius: 10px;
+  justify-content: center; 
+  color: red;
+  background-color: var(--bg);
+  z-index: 1;
+    
 }
   .container {
   display: flex;
   flex-direction:column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+    
+  }
+  #marks{
+     color: rgb(0, 255, 221);
+     margin: 20px 0px;
+     font-size: 25px;
+     display: flex;
+     position: sticky;
+     top: 0;
+     padding: 10px;
+     border-radius: 10px;
+     justify-content: center; 
+     z-index: 0;
+  }
+  #suggestions{
+    color: rgb(0, 255, 0);
   }
   .simple-select {
   background: white;
@@ -115,71 +265,89 @@
   font-size: 13px;
   cursor: pointer;
   outline: none;
-  align-self: flex-start; /* ✅ left aligned */
-  margin-bottom: 12px;    /* ✅ space between select and card */
+  align-self: flex-start; 
+  margin-bottom: 12px;    
 }
-  footer {
+  .footer{
     position: relative;
     z-index: 1;
+    width: 100vh;
     text-align: center;
-    padding: 30px 24px;
+    margin: 10px 10px 10px 620px;
+    border-bottom: 5px solid lawngreen;
+    padding: 10px 10px;
     border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+    background-color: var(--bg);
+    border-radius: 20px;
   }
 
-  footer span {
+  .footer span {
     color: var(--accent);
+    font-size: 20px;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
 <!-- Navbar -->
-  <nav>
-  <div class="nav-logo">✦ AcadBoost</div>
+<nav>
+  <div class="nav-logo">✦ Saraswati AcadBoost</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html" class="active">Predictor</a></li>
-    <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+    <li><a href="predict.html">Predictor</a></li>
+    <li><a href="AI mentor advice.html">Suggestions</a></li>
    <li><a href="Chart.html">Dashboard</a></li>
-   <li><a href="Goal.html">Set Your Goal</a>
-   <li><a href="Index.html">Get Timetable</a>
    <li><a href="Bot.html">Ask Me</a></li>
-  </ul>
-  </nav>
+   
   </ul>
 </nav>
-<div class="b b1"></div>
-<div class="b b2"></div>
-<div class="b b3"></div>
-
-
   
   <div class="container">
-    
-  <div class="glass-card" style="padding: 28px; margin: 0 24px;">
-     <h2 > <i> AI Mentor Says....</i> </h2>
+      
+  <div class="glass-card">
+     <h2> AI Mentor Says &nbsp; </h2>
      <div id="marks"></div>
-     <div id="suggestions"></div>
+     <div style="display: flex"  id="suggestions"></div>
    
    
   </div>
  </div>
 <script>
+ // --- BLINKING DOTS LOGIC ---
+// This function runs infinitely to animate the "..." on your heading
+function startTitleAnimation() {
+    const titleElement = document.querySelector(".container h2");
+    const originalText = titleElement.innerText;
+    
+    setInterval(() => {
+        if (titleElement.innerHTML.endsWith("...")) {
+            titleElement.innerHTML = originalText; // Reset to original text
+        } else {
+            titleElement.innerHTML += "."; 
+        }
+    }, 500); // 500ms speed from your source script
+}
+
+// Start the animation as soon as the page loads
+window.onload = startTitleAnimation; 
+
 const marks = localStorage.getItem('predicted_marks');
 const suggestions = localStorage.getItem('suggestions');
 
 document.getElementById('marks').innerText = marks;
-document.getElementById('suggestions').innerHTML =
-    suggestions.replace(/\n/g, '<br/>');
+document.getElementById('suggestions').innerHTML = suggestions.replace(/\n/g, '<br/>');
+ 
 </script>
 
 
-<footer>
+
+<div class="footer">
   Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
-</footer>
+</div>
 
 </body>
 </html>
