@@ -17,10 +17,10 @@
 <div class="container">
     <h2 style="text-align:center;">📋 Your Timetable</h2>
     
-    <!-- Jab tak API data de rahi hai, tab tak yeh dikhega -->
+    
     <div id="loading">✨ Generating your timetable... Please wait.</div>
     
-    <!-- Yahan table generate hoga -->
+    
     <div id="timetableContent"></div>
 
     <br>
@@ -31,15 +31,15 @@
 </div>
 
 <script>
-// --- YAHAN APNA RENDER URL DALEIN ---
+
 const BACKEND_URL = "https://aapka-backend-api.onrender.com";
 
-// Page khulte hi yeh function chalega
+
 window.onload = async function() {
-    // 1. SessionStorage se purana data uthana
+    
     const savedData = sessionStorage.getItem("timetableFormData");
     
-    // Agar direct koi result page pe aa gaya bina form bhare
+
     if (!savedData) {
         alert("Please fill the form first!");
         window.location.href = "index.html";
@@ -49,7 +49,7 @@ window.onload = async function() {
     const data = JSON.parse(savedData);
 
     try {
-        // 2. API Call karna
+    
         const res = await fetch(`${BACKEND_URL}/api/timetable`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -58,16 +58,16 @@ window.onload = async function() {
 
         const result = await res.json();
         
-        // 3. Loading text hata dena
+        
         document.getElementById("loading").style.display = "none";
         
-        // 4. Table Banana
+        
         let contentBox = document.getElementById('timetableContent');
         let htmlContent = "";
         let days = [];
         let currentDayObj = null;
 
-        // Backend ke list ko Days me todna
+        
         result.timetable.forEach(line => {
             if (line.includes("DAY")) {
                 if (currentDayObj) days.push(currentDayObj);
@@ -78,7 +78,7 @@ window.onload = async function() {
         });
         if (currentDayObj) days.push(currentDayObj);
 
-        // HTML generate karna
+        
         days.forEach(dayData => {
             htmlContent += `<h3 style="background:#667eea;color:white;padding:10px;border-radius:4px;">${dayData.day}</h3>`;
             htmlContent += `
