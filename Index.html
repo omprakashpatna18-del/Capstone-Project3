@@ -309,6 +309,7 @@ async function submitForm() {
     let warningBox = document.getElementById("warnings");
     if (warningBox.innerHTML !== "") {
         alert("⚠️ Please fix the warnings before generating the timetable.");
+        return;
 }
     
     
