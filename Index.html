@@ -306,12 +306,12 @@ document.querySelectorAll("input").forEach(input => {
 });
 
 async function submitForm() {
-    showWarnings();
-    let warningBox = document.getElementById("warnings");
-    if (warningBox.innerHTML !== "") {
-        alert("⚠️ Please fix the warnings before generating the timetable.");
-        return;
-}
+    let exactWarnings = showWarnings();
+    
+    if (exactWarnings.length > 0) {
+        alert("Please fix these issues first:\n\n" + exactWarnings.join("\n\n"));
+        return; 
+    }
     
     
     const data = {
