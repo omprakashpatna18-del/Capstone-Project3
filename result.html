@@ -1,85 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Timetable</title>
+    <title>Your Timetable</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; background: white; }
+        th, td { padding: 12px; border: 1px solid #ddd; }
+        th { background: #f2f2f2; text-align: left; }
+        #loading { text-align: center; font-size: 18px; color: #667eea; margin-top: 50px; }
+    </style>
 </head>
 <body>
 
-<h2>📋Your Timetable</h2>
-
-{% set ns = namespace(days=[], current_day=None, current_rows=[]) %}
-
-{% for line in timetable %}
-
-    {% if "DAY" in line %}
-
-        {% if ns.current_day %}
-            {% set _ = ns.days.append((ns.current_day, ns.current_rows)) %}
-        {% endif %}
-
-        {% set ns.current_day = line %}
-        {% set ns.current_rows = [] %}
-
-    {% else %}
-        {% set _ = ns.current_rows.append(line) %}
-    {% endif %}
-
-{% endfor %}
-
-{% if ns.current_day %}
-    {% set _ = ns.days.append((ns.current_day, ns.current_rows)) %}
-{% endif %}
-
-{% for day, rows in ns.days %}
-
-    <h3 style="background:#667eea;color:white;padding:8px;">{{ day }}</h3>
-
-    <table border="1" width="100%">
-        <tr>
-            <th>Activity</th>
-            <th>Time</th>
-            <th>Done?</th>
-        </tr>
-
-        {% for line in rows %}
-            {% set parts = line.split(": ", 1) %}
-            <tr>
-                <td>{{ parts[0] }}</td>
-                <td>{{ parts[1] if parts|length > 1 else "" }}</td>
-                <td>
-                    <input type="checkbox" onchange="saveProgress(this, '{{ line }}')">
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<div class="container">
+    <h2 style="text-align:center;">📋 Your Timetable</h2>
+    
+    <!-- Jab tak API data de rahi hai, tab tak yeh dikhega -->
+    <div id="loading">✨ Generating your timetable... Please wait.</div>
+    
+    <!-- Yahan table generate hoga -->
+    <div id="timetableContent"></div>
 
     <br>
-
-{% endfor %}
-
-<a href="/stats">📊 View Weekly Stats</a>
+    <div style="text-align: center;">
+        <a href="stats.html" style="text-decoration:none; background:#667eea; color:white; padding:10px 20px; border-radius:5px;">📊 View Weekly Stats</a>
+        <a href="index.html" style="text-decoration:none; color:#667eea; margin-left: 15px;">🔙 Go Back</a>
+    </div>
+</div>
 
 <script>
-function saveProgress(checkbox, line) {
-    let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
+// --- YAHAN APNA RENDER URL DALEIN ---
+const BACKEND_URL = "https://aapka-backend-api.onrender.com";
 
-    let today = new Date().toISOString().split("T")[0];
-
-    if (!data[today]) {
-        data[today] = [];
+// Page khulte hi yeh function chalega
+window.onload = async function() {
+    // 1. SessionStorage se purana data uthana
+    const savedData = sessionStorage.getItem("timetableFormData");
+    
+    // Agar direct koi result page pe aa gaya bina form bhare
+    if (!savedData) {
+        alert("Please fill the form first!");
+        window.location.href = "index.html";
+        return;
     }
 
+    const data = JSON.parse(savedData);
+
+    try {
+        // 2. API Call karna
+        const res = await fetch(`${BACKEND_URL}/api/timetable`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+        
+        // 3. Loading text hata dena
+        document.getElementById("loading").style.display = "none";
+        
+        // 4. Table Banana
+        let contentBox = document.getElementById('timetableContent');
+        let htmlContent = "";
+        let days = [];
+        let currentDayObj = null;
+
+        // Backend ke list ko Days me todna
+        result.timetable.forEach(line => {
+            if (line.includes("DAY")) {
+                if (currentDayObj) days.push(currentDayObj);
+                currentDayObj = { day: line, rows: [] };
+            } else if (!line.includes("Summary:")) {
+                if (currentDayObj) currentDayObj.rows.push(line);
+            }
+        });
+        if (currentDayObj) days.push(currentDayObj);
+
+        // HTML generate karna
+        days.forEach(dayData => {
+            htmlContent += `<h3 style="background:#667eea;color:white;padding:10px;border-radius:4px;">${dayData.day}</h3>`;
+            htmlContent += `
+            <table>
+                <tr>
+                    <th>Activity</th>
+                    <th>Time</th>
+                    <th style="text-align: center;">Done?</th>
+                </tr>`;
+
+            dayData.rows.forEach(line => {
+                let parts = line.split(": ");
+                let activity = parts[0];
+                let time = parts.length > 1 ? parts[1] : "";
+                let safeLine = line.replace(/'/g, "\\'");
+
+                htmlContent += `
+                <tr>
+                    <td><strong>${activity}</strong></td>
+                    <td>${time}</td>
+                    <td style="text-align: center;">
+                        <input type="checkbox" onchange="saveProgress(this, '${safeLine}')">
+                    </td>
+                </tr>`;
+            });
+            htmlContent += `</table>`;
+        });
+
+        contentBox.innerHTML = htmlContent;
+
+    } catch (err) {
+        document.getElementById("loading").innerText = "❌ Failed to connect to server. Check Render API.";
+        document.getElementById("loading").style.color = "red";
+    }
+};
+
+
+function saveProgress(checkbox, line) {
+    let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
+    let today = new Date().toISOString().split("T")[0];
+
+    if (!data[today]) data[today] = [];
+
     if (checkbox.checked) {
-        if (!data[today].includes(line)) {
-            data[today].push(line);
-        }
+        if (!data[today].includes(line)) data[today].push(line);
     } else {
         data[today] = data[today].filter(item => item !== line);
     }
-
     localStorage.setItem("weeklyData", JSON.stringify(data));
 }
 </script>
 
 </body>
-</html>
+</html>>
