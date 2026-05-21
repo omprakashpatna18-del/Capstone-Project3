@@ -320,23 +320,15 @@
         <!-- WARNINGS -->
         <div id="warnings"></div>
 
-        <!-- Type ko 'button' banaya aur onclick event lagaya -->
         <button type="button" onclick="submitForm()">✨ Generate My Timetable</button>
     </form>
 
-    <!-- Jinja2 ko hata kar ek khali div lagaya, Jisme JS data dale ga -->
-    <div class="output" id="timetableResultBox">
-        <h3>📋 Your Timetable</h3>
-        <div id="timetableContent"></div>
-    </div>
-</div>
-
 <script>
-// 1. Apna render URL yahan update karein (Last me slash / mat lagana)
+
 const BACKEND_URL = "https://aapka-backend-api.onrender.com";
 
 async function submitForm() {
-    // 2. Form se data collect karna
+    
     const data = {
         days: parseInt(document.querySelector('[name="days"]').value) || 1,
         subjects: document.querySelector('[name="subjects"]').value || "",
@@ -357,7 +349,7 @@ async function submitForm() {
     };
 
     try {
-        // 3. Backend (Render) ko data bhejna
+        
         const res = await fetch(`${BACKEND_URL}/timetable`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -402,7 +394,7 @@ async function submitForm() {
     }
 }
 
-// (Warning Logic Same hai)
+
 function toMinutes(t) {
     if (!t) return null;
     let parts = t.split(":");
