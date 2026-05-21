@@ -36,6 +36,40 @@
             margin-top: 10px;
         }
 
+        nav {
+    width: 100%;
+    max-width: 520px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.3px;
+  }
+
+  .nav-links { display: flex; gap: 18px; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--accent); }
+
         input {
             width: 100%;
             padding: 10px;
@@ -88,7 +122,8 @@
 </head>
 
 <body>
-
+<div class="nav">
+    
 <div class="container">
     <h1>📅 Smart Timetable Generator</h1>
 
