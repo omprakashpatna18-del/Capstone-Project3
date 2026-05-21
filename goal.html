@@ -33,38 +33,39 @@
       margin-bottom: 20px;
     }
     nav {
-    width: 100%;
-    max-width: 520px;
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 0 14px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 36px;
-  }
+      width: 100%;
+      max-width: 850px; /* Aligned with container */
+      margin: auto;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
 
-  .nav-brand {
-    font-size: 13px;
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.3px;
-  }
+    .nav-brand {
+      font-size: 16px; /* Slightly bigger to match Arial */
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.3px;
+    }
 
-  .nav-links { display: flex; gap: 18px; list-style: none; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-links a.active { color: var(--accent); }
+    .nav-links { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0;}
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent); }
 
     input,
     select,
@@ -147,6 +148,8 @@
     <li><a href="predict.html" class="active">Predictor</a></li>
     <li><a href="AI Mentor Advice.html">Suggestions</a></li>
    <li><a href="Chart.html">Dashboard</a></li>
+   <li><a href="Goal.html">Set Your Goal</a>
+   <li><a href="></a>
    <li><a href="Bot.html">Ask Me</a></li>
   </ul>
   </nav>
