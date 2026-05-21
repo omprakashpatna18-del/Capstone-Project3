@@ -103,7 +103,6 @@ def generate_timetable(data):
 
             if (
                 total_study_done >= study_minutes_goal
-                and total_break_done >= break_minutes_goal
             ):
                 break
 
