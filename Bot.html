@@ -1,13 +1,36 @@
-<!DOCTYPE html>
+<!!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Saraswati AcadBoost</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ===== Scrollbar for WebKit browsers (Chrome, Edge, Safari) ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
+::-webkit-scrollbar-track {
+  background: #121212; /* dark background */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2e2e2e; /* dark gray thumb */
+  border-radius: 6px;
+  border: 2px solid #121212; /* adds spacing effect */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444; /* lighter on hover */
+}
+
+/* ===== Scrollbar for Firefox ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #2e2e2e #121212;
+}
   :root {
     --bg: #06000f;
     --accent: #b46fff;
@@ -19,44 +42,49 @@
     --card: rgba(255,255,255,0.05);
   }
   body {
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Poppins', sans-serif;
     background: var(--bg);
+    background-image: url(9.png);
+    background-size: cover;
+    background-position: left;
+    background-attachment: fixed;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 0 16px 40px;
     position: relative;
     overflow-x: hidden;
   } 
- .b { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
-  .b1 { width:500px;height:500px;background:rgba(139,60,255,0.3);top:-150px;left:-150px;animation:bl 12s ease-in-out infinite alternate; }
-  .b2 { width:350px;height:350px;background:rgba(56,189,248,0.18);bottom:-100px;right:-100px;animation:bl 9s ease-in-out infinite alternate-reverse; }
-  .b3 { width:250px;height:250px;background:rgba(244,114,182,0.15);top:50%;left:60%;animation:bl 11s ease-in-out infinite alternate; }
-  @keyframes bl { to { transform: translate(25px,20px) scale(1.08); } }
+
  
   /* ── NAVBAR ── */
   nav {
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 2;
     padding: 16px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(6,0,15,0.7);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
+    background: none;
+    backdrop-filter: blur(50px);
+    border: 5px solid red;
+    margin: 40px 700px 30px 10px;
+    height: 100px;
+    width: 680px;
+    border-radius: 20px;
+    box-shadow: 0 0 50px blue;
   }
 
   .nav-logo {
     font-size: 16px;
     font-weight: 700;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    background: blue;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
+    background-clip: text; 
     text-align: left;
+    margin-right: 10px;
   }
 
   .nav-links {
@@ -66,128 +94,142 @@
   }
 
   .nav-links a {
-    color: var(--muted);
+    color: red;
     text-decoration: none;
     font-size: 13px;
-    transition: color 0.2s;
+    font-weight: bold;
   }
 
-  .nav-links a:hover { color: var(--text); }
- .btn {
-    margin-top: 4px;
-    width: 100%;
-    padding: 14px;
-    border: 1px solid rgba(192,132,252,0.5);
-    border-radius: 14px;
-    background: linear-gradient(135deg, #7c3aed, #a855f7 50%, #0ea5e9);
-    background-size: 200% 200%;
-    color: #fff;
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    box-shadow:
-      0 0 8px rgba(192,132,252,0.4),
-      inset 0 0 8px rgba(192,132,252,0.15);
-    transition: transform 0.2s, box-shadow 0.2s;
-    animation: gradShift 4s ease infinite;
-  }
-  
+  .nav-links a:hover { 
+     color: blue;
+     font-size: 15px;
+     font-weight: bold;
+    
+    
+    }
+   
   .glass-card {
-    background: var(--card);
+    background: none;
+    backdrop-filter: blur(50px);
     color:var(--text);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid var(--border);
     border-radius: 18px;
     padding: 24px;
-    box-shadow:
-    0 0 20px rgba(180,100,255,0.6);
-    
+    box-shadow: 0 0 50px lawngreen;
+    margin: 20px 700px 20px 10px;
+    position: relative;
+    z-index: 1;
+    margin: 10px 680px 10px 10px;
+    height: 70vh;
+    overflow: hidden scroll;
+  }
+  .glass-card input{
+    background: none;
+    backdrop-filter: blur(50px);
+    width: 570px;
+    height: 40px;
+    border-radius: 10px;
+    color: blue;
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 10px;
+    border: 2px solid red;
+    margin: 10px 10px;
 
+  } 
+
+  input::placeholder{
+     padding: 5px 0px 5px 15px;
+     color: lawngreen;
+     font-size: 15px;
+     font-weight: bold;
+  }
+  input:focus{
+        border-color: lawngreen;
+        font-weight: bold;
+        background: none;
+        box-shadow: 0 0 15px lawngreen;
+        outline-color: lawngreen;
+        outline-width: 1px;
+        outline-style: solid;
+      }
+  .btn {
+    display: inline-block;
+    padding: 13px 30px;
+    background: red;
+    border-radius: 30px;
+    color: greenyellow;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 5px solid lawngreen;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 0 40px gold;
+    margin: 10px 210px;
+  }
+
+  .btn:hover {
+    background: var(--bg);
+    color: red;
+    font-weight: bold;
+    border: 5px solid red;
+    box-shadow: 0 0 50px firebrick;
+  }
+
+  #ai-response{
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      color: lawngreen;
+  }
+
+  .footer{
     position: relative;
     z-index: 1;
-    margin: 30px auto;
-    width: 80vw;
-    height: 75vh;
-    max-width: 700px;
-  }
-  .container h2 {
-  color: white;
-  font-size: 22px;
-  font-weight: 700;
-  text-align:left;
-}
-  .container {
-  display: flex;
-  flex-direction:column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  }
-  .simple-select {
-  background: white;
-  color: black;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 13px;
-  cursor: pointer;
-  outline: none;
-  align-self: flex-start; /* ✅ left aligned */
-  margin-bottom: 12px;    /* ✅ space between select and card */
-}
-  footer {
-    position: relative;
-    z-index: 1;
+    width: 100vh;
     text-align: center;
-    padding: 30px 24px;
+    margin: 20px 600px 10px 10px;
+    border-bottom: 5px solid rgb(163, 0, 0);
+    box-shadow: 0 0px 40px greenyellow;
+    padding: 10px 10px;
     border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: red;
+    background-color: var(--bg);
+    border-radius: 20px;
   }
 
-  footer span {
-    color: var(--accent);
+  .footer span {
+    color: var(--accent2);
+    font-size: 20px;
+    font-weight: bold;
   }
 </style>
 </head>
 <body>
 
 <!-- Navbar -->
-  <nav>
-  <div class="nav-logo">✦ AcadBoost</div>
+<nav>
+  <div class="nav-logo">✦ Saraswati AcadBoost</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html" class="active">Predictor</a></li>
+    <li><a href="predict.html">Predictor</a></li>
     <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-    <li><a href="Chart.html">Dashboard</a></li>
-    <li><a href="goal.html">Set Your Goal</a></li>
-    <li><a href="Index.html">Get Timetable</a></li>
-    <li><a href="Bot.html">Ask Me</a></li>
-  </ul>
-  </nav>
+   <li><a href="Chart.html">Dashboard</a></li>
+   <li><a href="Bot.html">Ask Me</a></li>
    
    
   </ul>
 </nav>
-<div class="b b1"></div>
-<div class="b b2"></div>
-<div class="b b3"></div>
 
-<h2 style="color: white; margin-top: 20px;"><i>Ask Saraswati Anything...</i></h2>
+<div class="glass-card">
 
-<div class="glass-card" style="height: auto; min-height: 200px; margin-top: 10px;">
-    <input type="text" id="question" placeholder="Type here..." 
-           style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.1); color: white;">
+    <input type="text" id="question" placeholder=" Ask Saraswati Anything">
     
-    <button class="btn" onclick="answer()" style="margin-top: 15px;">Answer</button>
+    <button class="btn" onclick="answer()">Answer</button>
 
-    <div id="ai-response" style="margin-top: 20px; padding: 10px; color: var(--accent2); font-weight: 500;">
+    <div id="ai-response">
         </div>
 </div>
 
@@ -221,9 +263,9 @@ async function answer() {
 </script>
 
 
-<footer>
+<div class="footer">
   Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
-</footer>
+</div>
 
 </body>
 </html>
