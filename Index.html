@@ -305,7 +305,11 @@ document.querySelectorAll("input").forEach(input => {
 });
 
 async function submitForm() {
-    showWarnings()
+    showWarnings();
+    let warningBox = document.getElementById("warnings");
+    if (warningBox.innerHTML !== "") {
+        alert("⚠️ Please fix the warnings before generating the timetable.");
+}
     
     
     const data = {
