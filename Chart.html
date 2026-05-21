@@ -1,239 +1,285 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Student Performance Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #06000f;
+        --accent: #b46fff;
+        --accent2: #5ee7ff;
+        --accent3: #ff6eb4;
+        --text: #f0e6ff;
+        --muted: #9b84b8;
+        --border: rgba(180, 100, 255, 0.2);
+        --card: rgba(255, 255, 255, 0.05);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        background-image: url(10.png);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 0 16px 40px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      /* ── NAVBAR ── */
+
+      /* ── NAV ── */
+      nav {
+        width: 100%;
+        max-width: 600px;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0 14px;
+        border-bottom: 1px solid var(--border);
+        background-color: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 20px;
+        margin: 30px 10px 30px 10px;
+        border: 5px solid firebrick;
+        box-shadow: 0px 0 60px rgb(160, 2, 134);
+        padding: 10px 30px;
+      }
+
+      .nav-logo {
+        font-size: 13px;
+        font-weight: 700;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: lawngreen;
+      }
+      .chart-container {
+        background: var(--bg);
+        padding: 20px;
+        margin: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px lawngreen;
+      }
     
- :root {
-    --bg: #06000f;
-    --accent: #b46fff;
-    --accent2: #5ee7ff;
-    --accent3: #ff6eb4;
-    --text: #f0e6ff;
-    --muted: #9b84b8;
-    --border: rgba(180,100,255,0.2);
-    --card: rgba(255,255,255,0.05);
-  }
-  body {
-    font-family: 'Outfit', sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 16px 40px;
-    position: relative;
-    overflow-x: hidden;
-  } 
- .b { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; }
-  .b1 { width:500px;height:500px;background:rgba(139,60,255,0.3);top:-150px;left:-150px;animation:bl 12s ease-in-out infinite alternate; }
-  .b2 { width:350px;height:350px;background:rgba(56,189,248,0.18);bottom:-100px;right:-100px;animation:bl 9s ease-in-out infinite alternate-reverse; }
-  .b3 { width:250px;height:250px;background:rgba(244,114,182,0.15);top:50%;left:60%;animation:bl 11s ease-in-out infinite alternate; }
-  @keyframes bl { to { transform: translate(25px,20px) scale(1.08); } }
- 
-  /* ── NAVBAR ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(6,0,15,0.7);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-  }
+       h2{ 
+        text-align: center;
+        color: red;
+        background: var(--bg);
+        padding: 5px;
+        border-radius: 20px;
+        width: 300px;
+        border-radius: 5px solid red;
+        box-shadow: 0 0 40px solid red;
+     }
+      .footer {
+        position: relative;
+        z-index: 1;
+        width: 100vh;
+        text-align: center;
+        margin: 30px 10px 10px 60px;
+        border-bottom: 10px solid red;
+        padding: 10px 10px;
+        border-top: 1px solid var(--border);
+        font-size: 15px;
+        font-weight: bold;
+        color: red;
+        background-color: var(--bg);
+        border-radius: 20px;
+        font-family: 'Poppins' , sans-serif;
+      }
 
-  .nav-logo {
-    font-size: 16px;
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-align: left;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--text); }
-  .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
- .chart-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-  
-  footer {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 30px 24px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 20px;
-  }
-
-  footer span {
-    color: var(--accent);
-  }
-
-  
-h2 { text-align: center; color: #FFFFFF; }
+      .footer span {
+        color: var(--accent);
+        font-size: 20px;
+        font-weight: bold;
+      }
     </style>
-</head>
-<body>
-  <nav>
-  <div class="nav-logo">✦ AcadBoost</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html" class="active">Predictor</a></li>
-    <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-   <li><a href="Chart.html">Dashboard</a></li>
-   <li><a href="goal.html">Set Your Goal</a></li>
-   <li><a href="Index.html">Get Timetable</a></li>
-   <li><a href="Bot.html">Ask Me</a></li>
-  </ul>
-  </nav
-<div class="b b1"></div>
-<div class="b b2"></div>
-<div class="b b3"></div>
-
+  </head>
+  <body>
+    <nav>
+      <div class="nav-logo">✦ Saraswati AcadBoost</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="predict.html">Predictor</a></li>
+        <li><a href="AI mentor advice.html">Suggestions</a></li>
+        <li><a href="Chart.html">Dashboard</a></li>
+        <li><a href="Bot.html">Ask Me</a></li>
+      </ul>
+    </nav>
+    <div class="h2">
     <h2>Your Performance Dashboard</h2>
-    
+    </div>
     <div class="dashboard-grid">
-        <div class="chart-container">
-            <canvas id="marksChart"></canvas>
-        </div>
+      <div class="chart-container">
+        <canvas id="marksChart"></canvas>
+      </div>
 
-        <div class="chart-container">
-            <canvas id="sleepChart"></canvas>
-        </div>
+      <div class="chart-container">
+        <canvas id="sleepChart"></canvas>
+      </div>
 
-        <div class="chart-container">
-            <canvas id="studyChart"></canvas>
-        </div>
-        <div class="chart-container">
-            <canvas id="attendanceChart"></canvas>
-        </div>
+      <div class="chart-container">
+        <canvas id="studyChart"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="attendanceChart"></canvas>
+      </div>
     </div>
 
     <script>
-        // --- DATA HANDLING ---
-        // Hardcoded Averages
-        const avgData = { marks: 62.513, sleep: 7.008, study:4.007, attendance:70.017 };
+      // --- DATA HANDLING ---
+      // Hardcoded Averages
+      const avgData = {
+        marks: 62.513,
+        sleep: 7.008,
+        study: 4.007,
+        attendance: 70.017,
+      };
 
-        // Fetching User Data from localStorage (Fallback to default if empty)
-        const userData = {
-            marks: parseFloat(localStorage.getItem('predicted_marks')) || 60,
-            sleep: parseFloat(localStorage.getItem('p_sleep')) || 7,
-            study: parseFloat(localStorage.getItem('p_study')) || 4,
-            attendance: parseFloat(localStorage.getItem('p_attendance'))||70
-        };
+      // Fetching User Data from localStorage (Fallback to default if empty)
+      const userData = {
+        marks: parseFloat(localStorage.getItem("predicted_marks")) || 60,
+        sleep: parseFloat(localStorage.getItem("p_sleep")) || 7,
+        study: parseFloat(localStorage.getItem("p_study")) || 4,
+        attendance: parseFloat(localStorage.getItem("p_attendance")) || 70,
+      };
 
-        // --- CHART 1: MARKS (DOUGHNUT) ---
-        new Chart(document.getElementById('marksChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Your Marks', 'Average Marks'],
-                datasets: [{
-                    data: [userData.marks, avgData.marks],
-                    backgroundColor: ['#36A2EB', '#E0E0E0'],
-                    borderWidth: 2
-                }]
+      // --- CHART 1: MARKS (DOUGHNUT) ---
+      new Chart(document.getElementById("marksChart"), {
+        type: "doughnut",
+        data: {
+          labels: ["Your Marks", "Average Marks"],
+          datasets: [
+            {
+              data: [userData.marks, avgData.marks],
+              backgroundColor: ["#36A2EB", "#E0E0E0"],
+              borderWidth: 2,
             },
-            options: {
-                plugins: { title: { display: true, text: 'Predicted vs Average Marks' } }
-            }
-        });
+          ],
+        },
+        options: {
+          plugins: {
+            title: { display: true, text: "Predicted vs Average Marks" },
+          },
+        },
+      });
 
-        // --- CHART 2: SLEEP (POLAR AREA) ---
-        new Chart(document.getElementById('sleepChart'), {
-            type: 'polarArea',
-            data: {
-                labels: ['Your Sleep', 'Average Sleep'],
-                datasets: [{
-                    data: [userData.sleep, avgData.sleep],
-                    backgroundColor: ['rgba(255, 159, 64, 0.6)', 'rgba(75, 192, 192, 0.6)']
-                }]
+      // --- CHART 2: SLEEP (POLAR AREA) ---
+      new Chart(document.getElementById("sleepChart"), {
+        type: "polarArea",
+        data: {
+          labels: ["Your Sleep", "Average Sleep"],
+          datasets: [
+            {
+              data: [userData.sleep, avgData.sleep],
+              backgroundColor: [
+                "rgba(255, 159, 64, 0.6)",
+                "rgba(75, 192, 192, 0.6)",
+              ],
             },
-            options: {
-                plugins: { title: { display: true, text: 'Sleep Hours Comparison' } }
-            }
-        });
+          ],
+        },
+        options: {
+          plugins: { title: { display: true, text: "Sleep Hours Comparison" } },
+        },
+      });
 
-        // --- CHART 3: STUDY (HORIZONTAL BAR) ---
-        new Chart(document.getElementById('studyChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Study Hours'],
-                datasets: [{
-                    label: 'You',
-                    data: [userData.study],
-                    backgroundColor: '#9966FF'
-                }, {
-                    label: 'Average',
-                    data: [avgData.study],
-                    backgroundColor: '#C9CBCF'
-                }]
+      // --- CHART 3: STUDY (HORIZONTAL BAR) ---
+      new Chart(document.getElementById("studyChart"), {
+        type: "bar",
+        data: {
+          labels: ["Study Hours"],
+          datasets: [
+            {
+              label: "You",
+              data: [userData.study],
+              backgroundColor: "#9966FF",
             },
-            options: {
-                indexAxis: 'y',
-                plugins: { title: { display: true, text: 'Daily Study Hours' } },
-                scales: { x: { beginAtZero: true } }
-            }
-        });
+            {
+              label: "Average",
+              data: [avgData.study],
+              backgroundColor: "#C9CBCF",
+            },
+          ],
+        },
+        options: {
+          indexAxis: "y",
+          plugins: { title: { display: true, text: "Daily Study Hours" } },
+          scales: { x: { beginAtZero: true } },
+        },
+      });
 
       // --- CHART 4: ATTENDANCE (GAUGE STYLE) ---
-       new Chart(document.getElementById('attendanceChart'), {
-        type: 'bar',
+      new Chart(document.getElementById("attendanceChart"), {
+        type: "bar",
         data: {
-          labels: ['Attendance'],
+          labels: ["Attendance"],
           datasets: [
-            { 
-                label: 'You', 
-                data: [userData.attendance], 
-                backgroundColor: '#2ecc71' 
+            {
+              label: "You",
+              data: [userData.attendance],
+              backgroundColor: "#2ecc71",
             },
-            { 
-                label: 'Average', 
-                data: [avgData.attendance], 
-                backgroundColor: '#E0E0E0' 
-            }
-        ]
-    },
-       options: { 
-         plugins: {
-            title: { display: true, text: 'Attendance vs Average' }
+            {
+              label: "Average",
+              data: [avgData.attendance],
+              backgroundColor: "#E0E0E0",
+            },
+          ],
         },
-        scales: { 
-            y: { beginAtZero: true, max: 100 } 
-        } 
-    } // Options bracket closed
-});
+        options: {
+          plugins: {
+            title: { display: true, text: "Attendance vs Average" },
+          },
+          scales: {
+            y: { beginAtZero: true, max: 100 },
+          },
+        },
+      });
     </script>
-</body>
+    <div class="footer">
+      Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+    </div>
+  </body>
 </html>
