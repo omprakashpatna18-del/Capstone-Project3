@@ -311,6 +311,7 @@ async function submitForm() {
     if (warningBox.innerHTML !== "") {
         alert("⚠️ Please fix the warnings before generating the timetable.");
         return;
+    }
     
     const data = {
         days: parseInt(document.querySelector('[name="days"]').value) || 1,
