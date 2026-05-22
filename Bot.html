@@ -1,4 +1,5 @@
-<!!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -53,7 +54,6 @@
     flex-direction: column;
     padding: 0 16px 40px;
     position: relative;
-    overflow-x: hidden;
   } 
 
  
@@ -62,30 +62,29 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    padding: 16px 24px;
+    padding: 15px 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: none;
+    background: var(--bg);
     backdrop-filter: blur(50px);
     border: 5px solid red;
-    margin: 40px 700px 30px 10px;
-    height: 100px;
-    width: 680px;
+    margin: 40px 70vw 30px 10px;
+    height: 15vh;
+    width: 50vw;
     border-radius: 20px;
     box-shadow: 0 0 50px blue;
   }
 
-  .nav-logo {
-    font-size: 16px;
+    .nav-brand {
+    font-size: 15px;
     font-weight: 700;
-    background: blue;
+    background: lawngreen;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-clip: text; 
-    text-align: left;
-    margin-right: 10px;
-  }
+    background-clip: text;
+    letter-spacing: 0.3px;
+}
 
   .nav-links {
     display: flex;
@@ -101,7 +100,7 @@
   }
 
   .nav-links a:hover { 
-     color: blue;
+     color: lawngreen;
      font-size: 15px;
      font-weight: bold;
     
@@ -109,27 +108,27 @@
     }
    
   .glass-card {
-    background: none;
+    background: var(--bg);
     backdrop-filter: blur(50px);
     color:var(--text);
-    border: 1px solid var(--border);
+    border: 5px solid red;
     border-radius: 18px;
     padding: 24px;
     box-shadow: 0 0 50px lawngreen;
-    margin: 20px 700px 20px 10px;
+    margin: 20px 70vw 20px 10px;
     position: relative;
     z-index: 1;
-    margin: 10px 680px 10px 10px;
     height: 70vh;
-    overflow: hidden scroll;
+    width: 50vw;
+    overflow: scroll scroll;
   }
   .glass-card input{
     background: none;
     backdrop-filter: blur(50px);
-    width: 570px;
+    width: 40vw;
     height: 40px;
     border-radius: 10px;
-    color: blue;
+    color: yellow;
     font-size: 15px;
     font-weight: bold;
     padding-left: 10px;
@@ -186,13 +185,15 @@
   .footer{
     position: relative;
     z-index: 1;
-    width: 100vh;
+    width: 50vw;
     text-align: center;
-    margin: 20px 600px 10px 10px;
-    border-bottom: 5px solid rgb(163, 0, 0);
+    margin: 20px 60vw 10px 10px;
+    border-bottom: 10px solid lawngreen;
     box-shadow: 0 0px 40px greenyellow;
     padding: 10px 10px;
-    border-top: 1px solid var(--border);
+    border-top: 2px solid lawngreen;
+    border-right: 2px solid lawngreen;
+    border-left: 2px solid lawngreen;
     font-size: 15px;
     font-weight: bold;
     color: red;
@@ -201,7 +202,7 @@
   }
 
   .footer span {
-    color: var(--accent2);
+    color: lawngreen;
     font-size: 20px;
     font-weight: bold;
   }
@@ -211,17 +212,15 @@
 
 <!-- Navbar -->
 <nav>
-  <div class="nav-logo">✦ Saraswati AcadBoost</div>
+  <div class="nav-brand">✦ Saraswati AcadBoost</div>
   <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html">Predictor</a></li>
+    <li><a href='index.html'>Home</a></li>
+    <li><a href='predict.html'>Predictor</a></li>
     <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-   <li><a href="Chart.html">Dashboard</a></li>
-    <li><a href="Index.html">Get your timetable</a></li>
-    <li><a href="goal.html">Set your goal</a></li>
-   <li><a href="Bot.html">Ask Me</a></li>
-   
-   
+    <li><a href='Chart.html'>Dashboard</a></li>
+    <li><a href='goal.html'>Set Goal</a></li>
+    <li><a href='Index.html'>Timetable</a></li>
+    <li><a href='Bot.html'>Ask Me</a></li>
   </ul>
 </nav>
 
