@@ -1,342 +1,510 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Smart Timetable Generator</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Timetable Generator - Saraswati AcadBoost</title>
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right, #667eea, #764ba2);
-            margin: 0;
-            padding: 0;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e2e2e;
+        border-radius: 6px;
+        border: 2px solid #121212;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2e2e2e #121212;
+      }
 
-        h1 {
-            text-align: center;
-        }
+      :root {
+        --bg: #04000e;
+        --accent: #c084fc;
+        --accent2: #38bdf8;
+      }
 
-        .section {
-            margin-bottom: 20px;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        background-image: url(8.png);
+        background-size: cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px 40px;
+      }
 
-        label {
-            font-weight: 500;
-            display: block;
-            margin-top: 10px;
-        }
+      /* ── NAV ── */
+      nav {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 20px;
+        margin: 30px 10px;
+        border: 5px solid firebrick;
+        box-shadow: 0px 0 60px rgb(160, 2, 134);
+        padding: 10px 30px;
+      }
+      .nav-brand {
+        font-size: 15px;
+        font-weight: 700;
+        background: lawngreen;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 5px;
+        list-style: none;
+      }
 
+      .nav-links a {
+        color: greenyellow;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s;
+        margin: 20px;
+      }
+
+      .nav-links a:hover {
+        color: rgb(255, 0, 0);
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      /* ── CARD ── */
+      .glass-card {
+        width: 100%;
+        max-width: 800px;
+        background: var(--bg);
+        border: 5px solid red;
+        border-radius: 30px;
+        padding: 36px 30px;
+        box-shadow: 0 0 60px gold;
+      }
+
+      h1 {
+        color: red;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .section {
+        border: 3px solid red;
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 20px;
+        background: rgba(6, 0, 15, 0.8);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      }
+
+      h3 {
+        color: lawngreen;
+        margin-bottom: 15px;
+        border-bottom: 2px dashed red;
+        padding-bottom: 5px;
+      }
+
+      /* ── FORM ELEMENTS ── */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+
+      label {
+        color: lawngreen;
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        background: var(--bg);
+        border: 2px solid lawngreen;
+        border-radius: 12px;
+        color: red;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+      }
+      input::placeholder {
+        color: rgba(255, 0, 0, 0.7);
+      }
+      input:focus {
+        box-shadow: 0 0 15px lawngreen;
+        outline: solid 2px lawngreen;
+        font-weight: bold;
+      }
+
+      small {
+        color: greenyellow;
+        font-size: 11px;
+        display: block;
+        margin-top: 4px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 30px;
+        background: red;
+        border-radius: 30px;
+        color: greenyellow;
+        font-size: 18px;
+        font-weight: bold;
+        border: 5px solid lawngreen;
+        cursor: pointer;
+        box-shadow: 0 0 40px gold;
+        transition: 0.3s;
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+      }
+      .btn:hover {
+        background: var(--bg);
+        color: red;
+        border-color: red;
+        box-shadow: 0 0 50px firebrick;
+      }
+
+      /* ── WARNINGS ── */
+      .warning {
+        background: rgba(255, 0, 0, 0.1);
+        color: red;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: 2px solid red;
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 0 10px red;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+        margin-top: 30px;
+        border-bottom: 10px solid lawngreen;
+        padding: 10px;
+        border-top: 2px solid lawngreen;
+        border-left: 2px solid lawngreen;
+        border-right: 2px solid lawngreen;
+        font-size: 15px;
+        font-weight: bold;
+        color: red;
+        background: var(--bg);
+        border-radius: 20px;
+      }
+      .footer span {
+        color: lawngreen;
+        font-size: 20px;
+      }
+
+      @media only screen and (max-width: 455px) {
         nav {
-    width: 100%;
-    max-width: 520px;
-    position: relative;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 0 14px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 36px;
-  }
-
-  .nav-brand {
-    font-size: 13px;
-    font-weight: 700;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: 0.3px;
-  }
-
-  .nav-links { display: flex; gap: 18px; list-style: none; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--text); }
-  .nav-links a.active { color: var(--accent); }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
+          width: 95vw;
+          flex-direction: column;
         }
-
-        small {
-            color: gray;
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
         }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 20px;
-            background: #667eea;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
+        .glass-card {
+          width: 90vw;
+          padding: 20px;
         }
-
-        button:hover {
-            background: #5a67d8;
-        }
-
-        .output {
-            margin-top: 30px;
-            background: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
-        }
-
         .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+          grid-template-columns: 1fr;
         }
-
-        .warning {
-            background: #ffe6e6;
-            color: #a94442;
-            padding: 10px;
-            margin-top: 5px;
-            border-radius: 6px;
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-  <nav>
-  <div class="nav-brand">✦ AcadBoost</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="predict.html">Predictor</a></li>
-    <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-   <li><a href="Chart.html">Dashboard</a></li>
-   <li><a href="goal.html">Set Your Goal</a></li>
-   <li><a href="Index.html">Get Timetable</a></li>
-   <li><a href="Bot.html">Ask Me</a></li>
-  </ul>
-  </nav>
-    
-    
-<div class="container">
-    <h1>📅 Smart Timetable Generator</h1>
+  <body>
+    <nav>
+      <div class="nav-brand">✦ Saraswati AcadBoost</div>
+      <ul class="nav-links">
+        <li><a href='/'>Home</a></li>
+        <li><a href='/predict'>Predictor</a></li>
+        <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+        <li><a href='/chart'>Dashboard</a></li>
+        <li><a href='/goal'>Set Goal</a></li>
+        <li><a href='/planner'>Timetable</a></li>
+        <li><a href='/bot'>Ask Me</a></li>
+      </ul>
+    </nav>
 
-    <form method="POST" action="/result">
-        <!-- BASIC -->
+    <div class="glass-card">
+      <h1>📅 Smart Timetable Generator</h1>
+
+      <form method="POST" action="/result">
         <div class="section">
-            <h3>📌 Basic Planning</h3>
+          <h3>📌 Basic Planning</h3>
+          <label>How many days do you want to plan?</label>
+          <input name="days" placeholder="e.g. 7" />
 
-            <label>How many days do you want to plan?</label>
-            <input name="days" placeholder="e.g. 7">
+          <label>Subjects (comma separated)</label>
+          <input name="subjects" placeholder="math, science, english" />
 
-            <label>Subjects (comma separated)</label>
-            <input name="subjects" placeholder="math, science, english">
-
-            <label>Weak Subjects</label>
-            <input name="weak" placeholder="subjects you struggle with">
-
-            <label>Strong Subjects</label>
-            <input name="strong" placeholder="subjects you are good at">
-        </div>
-
-        <!-- STUDY -->
-        <div class="section">
-            <h3>⏱ Study Settings</h3>
-
-            <div class="grid">
-                <div>
-                    <label>Start Time (HH:MM)</label>
-                    <input name="start" placeholder="08:00" value="08:00">
-                    <small>When your day begins</small>
-                </div>
-
-                <div>
-                    <label>Session Duration (minutes)</label>
-                    <input name="duration" type="number" placeholder="60" value="60">
-                    <small>Length of one study session</small>
-                </div>
-
-                <div>
-                    <label>Break After How Many Sessions?</label>
-                    <input name="break_after" type="number" placeholder="2" value="2">
-                </div>
-
-                <div>
-                    <label>Break Duration (minutes)</label>
-                    <input name="break_duration" type="number" placeholder="15" value="15">
-                </div>
-
-                <div>
-                    <label>Total Study Time (hours)</label>
-                    <input name="study_hours" type="number" placeholder="6" value="6">
-                </div>
-
-                <div>
-                    <label>Total Break Time (hours)</label>
-                    <input name="break_hours" type="number" placeholder="1" value="1">
-                </div>
+          <div class="grid">
+            <div>
+              <label>Weak Subjects</label>
+              <input name="weak" placeholder="subjects you struggle with" />
             </div>
-        </div>
-
-        <!-- MEALS -->
-        <div class="section">
-            <h3>🍽 Meal Times</h3>
-
-            <div class="grid">
-                <div>
-                    <label>Breakfast Start (HH:MM)</label>
-                    <input name="b_start" placeholder="e.g. 09:00">
-                </div>
-
-                <div>
-                    <label>Breakfast End (HH:MM)</label>
-                    <input name="b_end" placeholder="e.g. 09:30">
-                </div>
-
-                <div>
-                    <label>Lunch Start (HH:MM)</label>
-                    <input name="l_start" placeholder="e.g. 13:00">
-                </div>
-
-                <div>
-                    <label>Lunch End (HH:MM)</label>
-                    <input name="l_end" placeholder="e.g. 13:45">
-                </div>
-
-                <div>
-                    <label>Dinner Start (HH:MM)</label>
-                    <input name="d_start" placeholder="e.g. 20:00">
-                </div>
-
-                <div>
-                    <label>Dinner End (HH:MM)</label>
-                    <input name="d_end" placeholder="e.g. 20:45">
-                </div>
+            <div>
+              <label>Strong Subjects</label>
+              <input name="strong" placeholder="subjects you are good at" />
             </div>
+          </div>
         </div>
 
-        <!-- WARNINGS -->
+        <div class="section">
+          <h3>⏱ Study Settings</h3>
+          <div class="grid">
+            <div>
+              <label>Start Time (HH:MM)</label>
+              <input name="start" placeholder="08:00" value="08:00" />
+              <small>When your day begins</small>
+            </div>
+            <div>
+              <label>Session Duration (minutes)</label>
+              <input
+                name="duration"
+                type="number"
+                placeholder="60"
+                value="60"
+              />
+              <small>Length of one study session</small>
+            </div>
+            <div>
+              <label>Break After How Many Sessions?</label>
+              <input
+                name="break_after"
+                type="number"
+                placeholder="2"
+                value="2"
+              />
+            </div>
+            <div>
+              <label>Break Duration (minutes)</label>
+              <input
+                name="break_duration"
+                type="number"
+                placeholder="15"
+                value="15"
+              />
+            </div>
+            <div>
+              <label>Total Study Time (hours)</label>
+              <input
+                name="study_hours"
+                type="number"
+                placeholder="6"
+                value="6"
+              />
+            </div>
+            <div>
+              <label>Total Break Time (hours)</label>
+              <input
+                name="break_hours"
+                type="number"
+                placeholder="1"
+                value="1"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>🍽 Meal Times</h3>
+          <div class="grid">
+            <div>
+              <label>Breakfast Start (HH:MM)</label>
+              <input name="b_start" placeholder="e.g. 09:00" />
+            </div>
+            <div>
+              <label>Breakfast End (HH:MM)</label>
+              <input name="b_end" placeholder="e.g. 09:30" />
+            </div>
+            <div>
+              <label>Lunch Start (HH:MM)</label>
+              <input name="l_start" placeholder="e.g. 13:00" />
+            </div>
+            <div>
+              <label>Lunch End (HH:MM)</label>
+              <input name="l_end" placeholder="e.g. 13:45" />
+            </div>
+            <div>
+              <label>Dinner Start (HH:MM)</label>
+              <input name="d_start" placeholder="e.g. 20:00" />
+            </div>
+            <div>
+              <label>Dinner End (HH:MM)</label>
+              <input name="d_end" placeholder="e.g. 20:45" />
+            </div>
+          </div>
+        </div>
+
         <div id="warnings"></div>
 
-        <button type="button" onclick="submitForm()">✨ Generate My Timetable</button>
-    </form>
+        <button type="button" class="btn" onclick="submitForm()">
+          ✨ Generate My Timetable
+        </button>
+      </form>
+    </div>
 
-<script>
-function toMinutes(t) {
-    if (!t) return null;
-    let parts = t.split(":");
-    if (parts.length !== 2) return null;
-    let h = parseInt(parts[0]);
-    let m = parseInt(parts[1]);
-    if (isNaN(h) || isNaN(m)) return null;
-    return h * 60 + m;
-}
+    <script>
+      function toMinutes(t) {
+        if (!t) return null;
+        let parts = t.split(":");
+        if (parts.length !== 2) return null;
+        let h = parseInt(parts[0]);
+        let m = parseInt(parts[1]);
+        if (isNaN(h) || isNaN(m)) return null;
+        return h * 60 + m;
+      }
 
-function showWarnings() {
-    let warnings = [];
+      function showWarnings() {
+        let warnings = [];
 
-    let days = parseInt(document.querySelector('[name="days"]').value);
-    let duration = parseInt(document.querySelector('[name="duration"]').value);
-    let breakAfter = parseInt(document.querySelector('[name="break_after"]').value);
-    let studyHours = parseInt(document.querySelector('[name="study_hours"]').value);
+        let days = parseInt(document.querySelector('[name="days"]').value);
+        let duration = parseInt(
+          document.querySelector('[name="duration"]').value,
+        );
+        let breakAfter = parseInt(
+          document.querySelector('[name="break_after"]').value,
+        );
+        let studyHours = parseInt(
+          document.querySelector('[name="study_hours"]').value,
+        );
 
-    let start = toMinutes(document.querySelector('[name="start"]').value);
-    let bStart = toMinutes(document.querySelector('[name="b_start"]').value);
-    let lStart = toMinutes(document.querySelector('[name="l_start"]').value);
+        let start = toMinutes(document.querySelector('[name="start"]').value);
+        let bStart = toMinutes(
+          document.querySelector('[name="b_start"]').value,
+        );
+        let lStart = toMinutes(
+          document.querySelector('[name="l_start"]').value,
+        );
 
-    if (days > 30) {
-        warnings.push("⚠️ Too many days. Try 30 or less.");
-    }
-
-    if (duration >= 120) {
-        warnings.push("⚠️ Long sessions → fewer study blocks.");
-    }
-
-    if (studyHours && duration && breakAfter) {
-        let sessions = Math.floor((studyHours * 60) / duration);
-        if (sessions < breakAfter) {
-            warnings.push("⚠️ Break may never occur.");
+        if (days > 30) {
+          warnings.push("⚠️ Too many days. Try 30 or less.");
         }
-    }
 
-    if (start && bStart && start > bStart) {
-        warnings.push("⚠️ Breakfast will be skipped.");
-    }
+        if (duration >= 120) {
+          warnings.push("⚠️ Long sessions → fewer study blocks.");
+        }
 
-    if (start && lStart && start > lStart) {
-        warnings.push("⚠️ Lunch may be skipped.");
-    }
+        if (studyHours && duration && breakAfter) {
+          let sessions = Math.floor((studyHours * 60) / duration);
+          if (sessions < breakAfter) {
+            warnings.push("⚠️ Break may never occur.");
+          }
+        }
 
-    if (document.querySelector('[name="start"]').value && start === null) {
-        warnings.push("⚠️ Invalid time format (use HH:MM).");
-    }
+        if (start && bStart && start > bStart) {
+          warnings.push("⚠️ Breakfast will be skipped.");
+        }
 
-    let box = document.getElementById("warnings");
-    box.innerHTML = "";
+        if (start && lStart && start > lStart) {
+          warnings.push("⚠️ Lunch may be skipped.");
+        }
 
-    warnings.forEach(w => {
-        let div = document.createElement("div");
-        div.className = "warning";
-        div.innerText = w;
-        box.appendChild(div);
-    });
-    return warnings;
-}
+        if (document.querySelector('[name="start"]').value && start === null) {
+          warnings.push("⚠️ Invalid time format (use HH:MM).");
+        }
 
-document.querySelectorAll("input").forEach(input => {
-    input.addEventListener("input", showWarnings);
-});
+        let box = document.getElementById("warnings");
+        box.innerHTML = "";
 
-async function submitForm() {
-    let exactWarnings = showWarnings();
-    
-    if (exactWarnings.length > 0) {
-        alert("Please fix these issues first:\n\n" + exactWarnings.join("\n\n"));
-        return; 
-    }
-    
-    
-    const data = {
-        days: parseInt(document.querySelector('[name="days"]').value) || 1,
-        subjects: document.querySelector('[name="subjects"]').value || "",
-        weak: document.querySelector('[name="weak"]').value || "",
-        strong: document.querySelector('[name="strong"]').value || "",
-        start: document.querySelector('[name="start"]').value || "08:00",
-        duration: parseInt(document.querySelector('[name="duration"]').value) || 60,
-        break_after: parseInt(document.querySelector('[name="break_after"]').value) || 2,
-        break_duration: parseInt(document.querySelector('[name="break_duration"]').value) || 15,
-        study_hours: parseInt(document.querySelector('[name="study_hours"]').value) || 6,
-        break_hours: parseInt(document.querySelector('[name="break_hours"]').value) || 1,
-        b_start: document.querySelector('[name="b_start"]').value || "",
-        b_end: document.querySelector('[name="b_end"]').value || "",
-        l_start: document.querySelector('[name="l_start"]').value || "",
-        l_end: document.querySelector('[name="l_end"]').value || "",
-        d_start: document.querySelector('[name="d_start"]').value || "",
-        d_end: document.querySelector('[name="d_end"]').value || ""
-    };
+        warnings.forEach((w) => {
+          let div = document.createElement("div");
+          div.className = "warning";
+          div.innerText = w;
+          box.appendChild(div);
+        });
+        return warnings;
+      }
 
-sessionStorage.setItem("timetableFormData", JSON.stringify(data));
-window.location.href = "result.html";
-}   
-</script>
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("input", showWarnings);
+      });
 
-</body>
+      async function submitForm() {
+        let exactWarnings = showWarnings();
+
+        if (exactWarnings.length > 0) {
+          alert(
+            "Please fix these issues first:\n\n" + exactWarnings.join("\n\n"),
+          );
+          return;
+        }
+
+        const data = {
+          days: parseInt(document.querySelector('[name="days"]').value) || 1,
+          subjects: document.querySelector('[name="subjects"]').value || "",
+          weak: document.querySelector('[name="weak"]').value || "",
+          strong: document.querySelector('[name="strong"]').value || "",
+          start: document.querySelector('[name="start"]').value || "08:00",
+          duration:
+            parseInt(document.querySelector('[name="duration"]').value) || 60,
+          break_after:
+            parseInt(document.querySelector('[name="break_after"]').value) || 2,
+          break_duration:
+            parseInt(document.querySelector('[name="break_duration"]').value) ||
+            15,
+          study_hours:
+            parseInt(document.querySelector('[name="study_hours"]').value) || 6,
+          break_hours:
+            parseInt(document.querySelector('[name="break_hours"]').value) || 1,
+          b_start: document.querySelector('[name="b_start"]').value || "",
+          b_end: document.querySelector('[name="b_end"]').value || "",
+          l_start: document.querySelector('[name="l_start"]').value || "",
+          l_end: document.querySelector('[name="l_end"]').value || "",
+          d_start: document.querySelector('[name="d_start"]').value || "",
+          d_end: document.querySelector('[name="d_end"]').value || "",
+        };
+
+        sessionStorage.setItem("timetableFormData", JSON.stringify(data));
+        window.location.href = "result.html";
+      }
+    </script>
+
+    <div class="footer">
+      Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+    </div>
+  </body>
 </html>
+        
