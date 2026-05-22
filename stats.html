@@ -1,107 +1,312 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Weekly Stats</title>
 
-    <!-- Chart.js -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weekly Stats - Saraswati AcadBoost</title>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            padding: 20px;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-        canvas {
-            max-width: 600px;
-            margin: 20px auto;
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e2e2e;
+        border-radius: 6px;
+        border: 2px solid #121212;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2e2e2e #121212;
+      }
+
+      :root {
+        --bg: #04000e;
+        --accent: #c084fc;
+        --accent2: #38bdf8;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        background-image: url(8.png);
+        background-size: cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px 40px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 20px;
+        margin: 30px 10px;
+        border: 5px solid firebrick;
+        box-shadow: 0px 0 60px rgb(160, 2, 134);
+        padding: 10px 30px;
+      }
+      .nav-brand {
+        font-size: 15px;
+        font-weight: 700;
+        background: lawngreen;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 18px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: red;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: lawngreen;
+      }
+
+      /* ── CARD ── */
+      .glass-card {
+        width: 100%;
+        max-width: 700px;
+        background: var(--bg);
+        border: 5px solid red;
+        border-radius: 30px;
+        padding: 36px 30px;
+        box-shadow: 0 0 60px gold;
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      h2,
+      h3 {
+        color: red;
+        margin-bottom: 20px;
+        background: rgba(6, 0, 15, 0.8);
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px solid red;
+      }
+      h3 {
+        margin-top: 40px;
+      }
+
+      .stats-text {
+        color: lawngreen;
+        font-size: 18px;
+        font-weight: bold;
+        background: rgba(6, 0, 15, 0.8);
+        border: 2px solid lawngreen;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 15px rgba(124, 252, 0, 0.2);
+      }
+
+      canvas {
+        max-width: 600px;
+        margin: 20px auto;
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        border: 3px solid red;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        margin-top: 30px;
+        border-bottom: 10px solid lawngreen;
+        padding: 10px;
+        border-top: 2px solid lawngreen;
+        border-left: 2px solid lawngreen;
+        border-right: 2px solid lawngreen;
+        font-size: 15px;
+        font-weight: bold;
+        color: red;
+        background: var(--bg);
+        border-radius: 20px;
+      }
+      .footer span {
+        color: lawngreen;
+        font-size: 20px;
+      }
+
+      @media only screen and (max-width: 455px) {
+        nav {
+          width: 95vw;
+          flex-direction: column;
+          gap: 10px;
         }
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .glass-card {
+          width: 90vw;
+          padding: 20px;
+        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
+    <nav>
+      <div class="nav-brand">✦ Saraswati AcadBoost</div>
+      <ul class="nav-links">
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='predict.html'>Predictor</a></li>
+        <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+        <li><a href='Chart.html'>Dashboard</a></li>
+        <li><a href='goal.html'>Set Goal</a></li>
+        <li><a href='Index.html'>Timetable</a></li>
+        <li><a href='Bot.html'>Ask Me</a></li>
+      </ul>
+    </nav>
 
-<h2>📊 Weekly Stats</h2>
+    <div class="glass-card">
+      <h2>📊 Weekly Stats</h2>
 
-<p id="days"></p>
-<p id="sessions"></p>
-<p id="streak"></p>
+      <div class="stats-text" id="days"></div>
+      <div class="stats-text" id="sessions"></div>
+      <div
+        class="stats-text"
+        id="streak"
+        style="color: greenyellow; border-color: red"
+      ></div>
 
-<h3>📈 Sessions Per Day</h3>
-<canvas id="barChart"></canvas>
+      <h3>📅 Sessions Per Day</h3>
+      <canvas id="barChart"></canvas>
 
-<h3>🍩 Study Distribution</h3>
-<canvas id="pieChart"></canvas>
+      <h3>📚 Study Distribution</h3>
+      <canvas id="pieChart"></canvas>
+    </div>
 
-<script>
-let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
+    <script>
+      // Make charts readable against the white backgrounds assigned above
+      Chart.defaults.color = "#000";
+      Chart.defaults.font.family = "'Poppins', sans-serif";
 
-let dates = Object.keys(data);
-let sessionCounts = dates.map(d => data[d].length);
+      let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
 
-// ---- Basic Stats ----
-let totalDays = dates.length;
+      let dates = Object.keys(data);
+      let sessionCounts = dates.map((d) => data[d].length);
 
-let totalSessions = 0;
-dates.forEach(d => totalSessions += data[d].length);
+      // ---- Basic Stats ----
+      let totalDays = dates.length;
+      let totalSessions = 0;
+      dates.forEach((d) => (totalSessions += data[d].length));
 
-// streak
-let streak = 0;
-let today = new Date();
+      // streak
+      let streak = 0;
+      let today = new Date();
 
-for (let i = 0; i < 7; i++) {
-    let date = new Date();
-    date.setDate(today.getDate() - i);
-    let key = date.toISOString().split("T")[0];
+      for (let i = 0; i < 7; i++) {
+        let date = new Date();
+        date.setDate(today.getDate() - i);
+        let key = date.toISOString().split("T")[0];
 
-    if (data[key] && data[key].length > 0) {
-        streak++;
-    } else {
-        break;
-    }
-}
-
-document.getElementById("days").innerText = "Days Studied: " + totalDays;
-document.getElementById("sessions").innerText = "Total Sessions: " + totalSessions;
-document.getElementById("streak").innerText = "🔥 Streak: " + streak + " days";
-
-// --------------------------- BAR CHART -------------------------------
-new Chart(document.getElementById("barChart"), {
-    type: 'bar',
-    data: {
-        labels: dates,
-        datasets: [{
-            label: 'Sessions',
-            data: sessionCounts
-        }]
-    }
-});
-
-// ---- PIE CHART (Subjects) ----
-let subjectCount = {};
-
-dates.forEach(d => {
-    data[d].forEach(item => {
-        let subject = item.split(":")[0];
-
-        if (!subjectCount[subject]) {
-            subjectCount[subject] = 0;
+        if (data[key] && data[key].length > 0) {
+          streak++;
+        } else {
+          break;
         }
-        subjectCount[subject]++;
-    });
-});
+      }
 
-new Chart(document.getElementById("pieChart"), {
-    type: 'pie',
-    data: {
-        labels: Object.keys(subjectCount),
-        datasets: [{
-            data: Object.values(subjectCount)
-        }]
-    }
-});
-</script>
+      document.getElementById("days").innerText = "Days Studied: " + totalDays;
+      document.getElementById("sessions").innerText =
+        "Total Sessions: " + totalSessions;
+      document.getElementById("streak").innerText =
+        "🔥 Streak: " + streak + " days";
 
-</body>
+      // --------------------------- BAR CHART -------------------------------
+      new Chart(document.getElementById("barChart"), {
+        type: "bar",
+        data: {
+          labels: dates,
+          datasets: [
+            {
+              label: "Sessions",
+              data: sessionCounts,
+              backgroundColor: "rgba(255, 0, 0, 0.7)",
+              borderColor: "red",
+              borderWidth: 1,
+            },
+          ],
+        },
+      });
+
+      // ---- PIE CHART (Subjects) ----
+      let subjectCount = {};
+
+      dates.forEach((d) => {
+        data[d].forEach((item) => {
+          let subject = item.split(":")[0];
+          if (!subjectCount[subject]) {
+            subjectCount[subject] = 0;
+          }
+          subjectCount[subject]++;
+        });
+      });
+
+      new Chart(document.getElementById("pieChart"), {
+        type: "pie",
+        data: {
+          labels: Object.keys(subjectCount),
+          datasets: [
+            {
+              data: Object.values(subjectCount),
+              backgroundColor: [
+                "#ff0000",
+                "#7cfc00",
+                "#00ffff",
+                "#ff00ff",
+                "#ffff00",
+                "#ff8c00",
+              ],
+            },
+          ],
+        },
+      });
+    </script>
+
+    <div class="footer">
+      Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+    </div>
+  </body>
 </html>
