@@ -1,346 +1,433 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Goal Planner</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Goal Planner - Saraswati AcadBoost</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  <style>
-    /* 1. MISSING VARIABLES FIX */
-    :root {
-      --accent: #7c3aed;
-      --accent2: #0ea5e9;
-      --text: #222222;
-      --muted: #666666;
-      --border: #e3e6ee;
-    }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e2e2e;
+        border-radius: 6px;
+        border: 2px solid #121212;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2e2e2e #121212;
+      }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      margin: 0;
-      padding: 30px;
-    }
+      :root {
+        --bg: #04000e;
+        --accent: #c084fc;
+        --accent2: #38bdf8;
+      }
 
-    .container {
-      max-width: 850px;
-      margin: auto;
-      background: white;
-      padding: 24px;
-      border-radius: 14px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    }
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        background-image: url(8.png);
+        background-size: cover;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px 40px;
+      }
 
-    h1 {
-      margin-top: 0;
-    }
+      /* ── NAV ── */
+      nav {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 20px;
+        margin: 30px 10px;
+        border: 5px solid firebrick;
+        box-shadow: 0px 0 60px rgb(160, 2, 134);
+        padding: 10px 30px;
+      }
+      .nav-brand {
+        font-size: 15px;
+        font-weight: 700;
+        background: lawngreen;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 5px;
+        list-style: none;
+      }
 
-    .top-section {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-    nav {
-      width: 100%;
-      max-width: 850px;
-      margin: auto;
-      position: relative;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 0 14px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 36px;
-    }
+      .nav-links a {
+        color: greenyellow;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s;
+        margin: 20px;
+      }
 
-    .nav-brand {
-      font-size: 16px;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: 0.3px;
-    }
+      .nav-links a:hover {
+        color: rgb(255, 0, 0);
+        font-weight: bold;
+        font-size: 15px;
+      }
 
-    .nav-links { display: flex; gap: 18px; list-style: none; padding: 0; margin: 0; }
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a.active { color: var(--accent); }
+      /* ── CARD ── */
+      .glass-card {
+        width: 100%;
+        max-width: 800px;
+        background: var(--bg);
+        border: 5px solid red;
+        border-radius: 30px;
+        padding: 36px 30px;
+        box-shadow: 0 0 60px gold;
+      }
 
-    input,
-    select,
-    button {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      box-sizing: border-box;
-    }
+      h1 {
+        color: red;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+      .small {
+        color: lawngreen;
+        text-align: center;
+        font-size: 12px;
+        margin-bottom: 25px;
+        display: block;
+      }
 
-    button {
-      cursor: pointer;
-      border: none;
-      background: #222;
-      color: white;
-    }
+      /* ── FORM ELEMENTS ── */
+      .top-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
 
-    .goal-card {
-      border: 1px solid #e3e6ee;
-      padding: 14px;
-      border-radius: 10px;
-      margin-top: 14px;
-    }
+      input,
+      select {
+        width: 100%;
+        padding: 12px;
+        background: var(--bg);
+        border: 2px solid lawngreen;
+        border-radius: 12px;
+        color: red;
+        font-family: "Poppins", sans-serif;
+        font-size: 14px;
+      }
+      input::placeholder {
+        color: rgba(255, 0, 0, 0.7);
+      }
+      input:focus,
+      select:focus {
+        box-shadow: 0 0 15px lawngreen;
+        outline: solid 2px lawngreen;
+        font-weight: bold;
+      }
+      select option {
+        background: var(--bg);
+        color: red;
+      }
 
-    .goal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-    }
+      button {
+        padding: 12px;
+        background: red;
+        border-radius: 12px;
+        color: greenyellow;
+        font-size: 15px;
+        font-weight: bold;
+        border: 3px solid lawngreen;
+        cursor: pointer;
+        box-shadow: 0 0 20px gold;
+        transition: 0.3s;
+        font-family: "Poppins", sans-serif;
+      }
+      button:hover {
+        background: var(--bg);
+        color: red;
+        border-color: red;
+        box-shadow: 0 0 30px firebrick;
+      }
 
-    .task {
-      margin-top: 8px;
-    }
+      /* ── GOAL CARDS ── */
+      .goal-card {
+        border: 3px solid red;
+        padding: 20px;
+        border-radius: 20px;
+        margin-top: 20px;
+        background: rgba(6, 0, 15, 0.8);
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      }
+      .goal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        color: lawngreen;
+      }
+      .goal-header strong {
+        font-size: 20px;
+        color: red;
+      }
 
-    .progress-wrapper {
-      margin-top: 14px;
-      margin-bottom: 10px;
-    }
+      .progress-wrapper {
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      .progress-bar {
+        width: 100%;
+        height: 16px;
+        background: var(--bg);
+        border: 2px solid red;
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: lawngreen;
+        transition: width 0.4s ease;
+        box-shadow: 0 0 10px lawngreen;
+      }
 
-    .progress-bar {
-      width: 100%;
-      height: 16px;
-      background: #e5e7eb;
-      border-radius: 20px;
-      overflow: hidden;
-    }
+      .task {
+        margin-top: 10px;
+        color: lawngreen;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+      }
+      .task input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        accent-color: red;
+        cursor: pointer;
+      }
 
-    .progress-fill {
-      height: 100%;
-      background: #4caf50;
-      transition: 0.3s;
-    }
+      .delete-btn {
+        background: var(--bg);
+        color: red;
+        border: 2px solid red;
+        padding: 8px 15px;
+        box-shadow: none;
+      }
+      .delete-btn:hover {
+        background: red;
+        color: white;
+        box-shadow: 0 0 15px red;
+      }
 
-    .small {
-      color: #666;
-      font-size: 13px;
-      margin-top: 6px;
-    }
+      .empty {
+        color: red;
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+      }
 
-    .delete-btn {
-      background: #d9534f;
-      padding: 7px 10px;
-      font-size: 12px;
-    }
+      /* ── FOOTER ── */
+      .footer {
+        width: 100%;
+        max-width: 800px;
+        text-align: center;
+        margin-top: 30px;
+        border-bottom: 10px solid lawngreen;
+        padding: 10px;
+        border-top: 2px solid lawngreen;
+        border-left: 2px solid lawngreen;
+        border-right: 2px solid lawngreen;
+        font-size: 15px;
+        font-weight: bold;
+        color: red;
+        background: var(--bg);
+        border-radius: 20px;
+      }
+      .footer span {
+        color: lawngreen;
+        font-size: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-brand">✦ Saraswati AcadBoost</div>
+      <ul class="nav-links">
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='predict.html'>Predictor</a></li>
+        <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+        <li><a href='Chart.html'>Dashboard</a></li>
+        <li><a href='goal.html'>Set Goal</a></li>
+        <li><a href='Index.html'>Timetable</a></li>
+        <li><a href='Bot.html'>Ask Me</a></li>
+      </ul>
+    </nav>
+    >
 
-    .empty {
-      color: #888;
-      margin-top: 18px;
-    }
-  </style>
-</head>
+    <div class="glass-card">
+      <h1>Goal Planner</h1>
+      <span class="small"
+        >Plan goals between dates, add tasks, and track progress.</span
+      >
 
-<body>
-  <nav>
-    <div class="nav-brand">✦ AcadBoost</div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="predict.html">Predictor</a></li>
-      <li><a href="AI Mentor Advice.html">Suggestions</a></li>
-      <li><a href="Chart.html">Dashboard</a></li>
-      <li><a href="goal.html">Set Your Goal</a></li>
-      <li><a href="Index.html">Get Timetable</a></li> 
-      <li><a href="Bot.html">Ask Me</a></li>
-    </ul>
-  </nav>
+      <div class="top-section">
+        <input type="text" id="goalTitle" placeholder="Goal title" />
+        <input type="date" id="startDate" />
+        <input type="date" id="endDate" />
+        <button onclick="addGoal()">✦ Add Goal</button>
+      </div>
 
-  <div class="container">
-    <h1>Goal Planner</h1>
-    <p class="small">Plan goals between dates, add tasks, and track progress.</p>
+      <div class="top-section">
+        <input type="text" id="taskText" placeholder="Task for selected goal" />
+        <select id="goalSelect"></select>
+        <button onclick="addTask()">✦ Add Task</button>
+      </div>
 
-    <div class="top-section">
-      <input type="text" id="goalTitle" placeholder="Goal title" />
-      <input type="date" id="startDate" />
-      <input type="date" id="endDate" />
-      <button onclick="addGoal()">Add Goal</button>
+      <div id="goalList"></div>
     </div>
 
-    <div class="top-section">
-      <input type="text" id="taskText" placeholder="Task for selected goal" />
-      <select id="goalSelect"></select>
-      <button onclick="addTask()">Add Task</button>
-    </div>
+    <script>
+      let goals = [];
 
-    <div id="goalList"></div>
-  </div>
+      function addGoal() {
+        const title = document.getElementById("goalTitle").value.trim();
+        const start = document.getElementById("startDate").value;
+        const end = document.getElementById("endDate").value;
 
-  <script>
-    let goals = [];
+        if (!title || !start || !end) return alert("Please fill all fields");
 
-    function addGoal() {
-      const title = document.getElementById("goalTitle").value.trim();
-      const start = document.getElementById("startDate").value;
-      const end = document.getElementById("endDate").value;
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const maxEndDate = new Date(startDate);
+        maxEndDate.setFullYear(startDate.getFullYear() + 12);
 
-      if (!title || !start || !end) {
-        alert("Please fill all fields");
-        return;
+        if (endDate < startDate)
+          return alert("End date must be after start date");
+        if (endDate > maxEndDate)
+          return alert("You can plan goals up to 12 years from the start date");
+
+        goals.push({ id: Date.now(), title, start, end, tasks: [] });
+
+        document.getElementById("goalTitle").value = "";
+        document.getElementById("startDate").value = "";
+        document.getElementById("endDate").value = "";
+        render();
       }
 
-      const startDate = new Date(start);
-      const endDate = new Date(end);
+      function addTask() {
+        const text = document.getElementById("taskText").value.trim();
+        const goalId = Number(document.getElementById("goalSelect").value);
 
-      const maxEndDate = new Date(startDate);
-      maxEndDate.setFullYear(startDate.getFullYear() + 12);
+        if (!text) return alert("Enter a task");
+        const goal = goals.find((g) => g.id === goalId);
+        if (!goal) return alert("Please create a goal first");
 
-      if (endDate < startDate) {
-        alert("End date must be after start date");
-        return;
+        goal.tasks.push({ text, done: false });
+        document.getElementById("taskText").value = "";
+        render();
       }
 
-      if (endDate > maxEndDate) {
-        alert("You can plan goals up to 12 years from the start date");
-        return;
+      function toggleTask(goalId, taskIndex) {
+        const goal = goals.find((g) => g.id === goalId);
+        if (!goal) return;
+        goal.tasks[taskIndex].done = !goal.tasks[taskIndex].done;
+        render();
       }
 
-      goals.push({
-        id: Date.now(),
-        title,
-        start,
-        end,
-        tasks: []
-      });
-
-      document.getElementById("goalTitle").value = "";
-      document.getElementById("startDate").value = "";
-      document.getElementById("endDate").value = "";
-
-      render();
-    }
-
-    function addTask() {
-      const text = document.getElementById("taskText").value.trim();
-      const goalId = Number(document.getElementById("goalSelect").value);
-
-      if (!text) {
-        alert("Enter a task");
-        return;
+      function deleteGoal(goalId) {
+        goals = goals.filter((g) => g.id !== goalId);
+        render();
       }
 
-      const goal = goals.find(g => g.id === goalId);
+      function render() {
+        const list = document.getElementById("goalList");
+        const select = document.getElementById("goalSelect");
+        list.innerHTML = "";
+        select.innerHTML = "";
 
-      if (!goal) {
-        alert("Please create a goal first");
-        return;
-      }
+        if (goals.length === 0) {
+          list.innerHTML = `<p class="empty">No goals added yet.</p>`;
+          localStorage.setItem("goals", JSON.stringify(goals));
+          return;
+        }
 
-      goal.tasks.push({
-        text,
-        done: false
-      });
+        goals.forEach((goal) => {
+          const option = document.createElement("option");
+          option.value = goal.id;
+          option.textContent = goal.title;
+          select.appendChild(option);
 
-      document.getElementById("taskText").value = "";
-      render();
-    }
+          const completed = goal.tasks.filter((task) => task.done).length;
+          const total = goal.tasks.length;
+          const percent = total ? Math.round((completed / total) * 100) : 0;
 
-    function toggleTask(goalId, taskIndex) {
-      const goal = goals.find(g => g.id === goalId);
-      if (!goal) return;
+          const card = document.createElement("div");
+          card.className = "goal-card";
 
-      goal.tasks[taskIndex].done = !goal.tasks[taskIndex].done;
-      render();
-    }
+          card.innerHTML = `
+                    <div class="goal-header">
+                        <div>
+                            <strong>${goal.title}</strong><br>
+                            <span class="small" style="text-align:left; margin-bottom:0; margin-top:5px;">${goal.start} to ${goal.end}</span>
+                        </div>
+                        <button class="delete-btn" onclick="deleteGoal(${goal.id})">Delete</button>
+                    </div>
+                    <div class="progress-wrapper">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width:${percent}%"></div>
+                        </div>
+                        <p class="small" style="text-align:left; margin-top:8px; margin-bottom:0;">${percent}% completed</p>
+                    </div>
+                `;
 
-    function deleteGoal(goalId) {
-      goals = goals.filter(g => g.id !== goalId);
-      render();
-    }
-
-    function render() {
-      const list = document.getElementById("goalList");
-      const select = document.getElementById("goalSelect");
-
-      list.innerHTML = "";
-      select.innerHTML = "";
-
-      if (goals.length === 0) {
-        list.innerHTML = `<p class="empty">No goals added yet.</p>`;
-        localStorage.setItem("goals", JSON.stringify(goals));
-        return;
-      }
-
-      goals.forEach(goal => {
-        const option = document.createElement("option");
-        option.value = goal.id;
-        option.textContent = goal.title;
-        select.appendChild(option);
-
-        const completed = goal.tasks.filter(task => task.done).length;
-        const total = goal.tasks.length;
-        const percent = total ? Math.round((completed / total) * 100) : 0;
-
-        const card = document.createElement("div");
-        card.className = "goal-card";
-
-        card.innerHTML = `
-          <div class="goal-header">
-            <div>
-              <strong>${goal.title}</strong><br>
-              <span class="small">${goal.start} to ${goal.end}</span>
-            </div>
-            <button class="delete-btn" onclick="deleteGoal(${goal.id})">
-              Delete
-            </button>
-          </div>
-
-          <div class="progress-wrapper">
-            <div class="progress-bar">
-              <div class="progress-fill" style="width:${percent}%"></div>
-            </div>
-            <p class="small">${percent}% completed</p>
-          </div>
-        `;
-
-        goal.tasks.forEach((task, index) => {
-          const taskDiv = document.createElement("div");
-          taskDiv.className = "task";
-
-          taskDiv.innerHTML = `
-            <label>
-              <input
-                type="checkbox"
-                ${task.done ? "checked" : ""}
-                onchange="toggleTask(${goal.id}, ${index})"
-              />
-              ${task.text}
-            </label>
-          `;
-
-          card.appendChild(taskDiv);
+          goal.tasks.forEach((task, index) => {
+            const taskDiv = document.createElement("div");
+            taskDiv.className = "task";
+            taskDiv.innerHTML = `
+                        <label style="display:flex; align-items:center; cursor:pointer;">
+                            <input type="checkbox" ${task.done ? "checked" : ""} onchange="toggleTask(${goal.id}, ${index})" />
+                            ${task.text}
+                        </label>
+                    `;
+            card.appendChild(taskDiv);
+          });
+          list.appendChild(card);
         });
+        localStorage.setItem("goals", JSON.stringify(goals));
+      }
 
-        list.appendChild(card);
-      });
+      const saved = localStorage.getItem("goals");
+      if (saved) goals = JSON.parse(saved);
+      render();
+    </script>
 
-      localStorage.setItem("goals", JSON.stringify(goals));
-    }
-
-    const saved = localStorage.getItem("goals");
-
-    if (saved) {
-      goals = JSON.parse(saved);
-    }
-
-    render();
-  </script>
-</body>
+    <div class="footer">
+      Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+    </div>
+  </body>
 </html>
