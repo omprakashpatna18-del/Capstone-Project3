@@ -1,135 +1,364 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Your Timetable</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Timetable - Saraswati AcadBoost</title>
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; background: white; }
-        th, td { padding: 12px; border: 1px solid #ddd; }
-        th { background: #f2f2f2; text-align: left; }
-        #loading { text-align: center; font-size: 18px; color: #667eea; margin-top: 50px; }
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #121212;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e2e2e;
+        border-radius: 6px;
+        border: 2px solid #121212;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444;
+      }
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2e2e2e #121212;
+      }
+
+      :root {
+        --bg: #04000e;
+        --accent: #c084fc;
+        --accent2: #38bdf8;
+        --border: rgba(192, 132, 252, 0.25);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg);
+        background-image: url(8.png);
+        background-size: cover;
+        background-position: left;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 16px 40px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-radius: 20px;
+        margin: 30px 10px 30px 10px;
+        border: 5px solid firebrick;
+        box-shadow: 0px 0 60px rgb(160, 2, 134);
+        padding: 10px 30px;
+      }
+      .nav-brand {
+        font-size: 15px;
+        font-weight: 700;
+        background: lawngreen;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 5px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: greenyellow;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color 0.2s;
+        margin: 20px;
+      }
+
+      .nav-links a:hover {
+        color: rgb(255, 0, 0);
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      /* ── CARD ── */
+      .glass-card {
+        width: 100%;
+        max-width: 700px;
+        background: var(--bg);
+        border: 5px solid red;
+        border-radius: 30px;
+        padding: 36px 30px;
+        box-shadow: 0 0 60px gold;
+        margin-top: 10px;
+      }
+
+      h2 {
+        text-align: center;
+        color: red;
+        margin-bottom: 20px;
+      }
+      #loading {
+        text-align: center;
+        font-size: 18px;
+        color: lawngreen;
+        margin-top: 20px;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* ── TABLE ── */
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 30px;
+        background: rgba(6, 0, 15, 0.8);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        padding: 12px;
+        border: 2px solid red;
+        color: lawngreen;
+      }
+      th {
+        background: #000;
+        color: red;
+        text-align: left;
+        font-weight: bold;
+      }
+      h3 {
+        background: red;
+        color: greenyellow;
+        padding: 10px;
+        border-radius: 10px;
+        border: 3px solid lawngreen;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      /* ── BUTTONS ── */
+      .btn-group {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 13px 30px;
+        background: red;
+        border-radius: 30px;
+        color: greenyellow;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        border: 5px solid lawngreen;
+        cursor: pointer;
+        box-shadow: 0 0 40px gold;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        background: var(--bg);
+        color: red;
+        border-color: red;
+        box-shadow: 0 0 50px firebrick;
+      }
+
+      /* ── FOOTER ── */
+      .footer {
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        margin-top: 30px;
+        border-bottom: 10px solid lawngreen;
+        padding: 10px;
+        border-top: 2px solid lawngreen;
+        border-left: 2px solid lawngreen;
+        border-right: 2px solid lawngreen;
+        font-size: 15px;
+        font-weight: bold;
+        color: red;
+        background-color: var(--bg);
+        border-radius: 20px;
+      }
+      .footer span {
+        color: lawngreen;
+        font-size: 20px;
+      }
+
+      @media only screen and (max-width: 455px) {
+        nav {
+          width: 95vw;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .nav-links {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .glass-card {
+          width: 90vw;
+          padding: 20px;
+        }
+        .btn {
+          width: 100%;
+          text-align: center;
+        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-brand">✦ Saraswati AcadBoost</div>
+      <ul class="nav-links">
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='predict.html'>Predictor</a></li>
+        <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+        <li><a href='Chart.html'>Dashboard</a></li>
+        <li><a href='goal.html'>Set Goal</a></li>
+        <li><a href='Index.html'>Timetable</a></li>
+        <li><a href='Bot.html'>Ask Me</a></li>
+      </ul>
+    </nav>
 
-<div class="container">
-    <h2 style="text-align:center;">📋 Your Timetable</h2>
-    
-    
-    <div id="loading">✨ Generating your timetable... Please wait.</div>
-    
-    
-    <div id="timetableContent"></div>
+    <div class="glass-card">
+      <h2>📋 Your AI Timetable</h2>
 
-    <br>
-    <div style="text-align: center;">
-        <a href="stats.html" style="text-decoration:none; background:#667eea; color:white; padding:10px 20px; border-radius:5px;">📊 View Weekly Stats</a>
-        <a href="index.html" style="text-decoration:none; color:#667eea; margin-left: 15px;">🔙 Go Back</a>
+      <div id="loading">✨ Generating your timetable... Please wait.</div>
+
+      <div id="timetableContent"></div>
+
+      <div class="btn-group">
+        <a href="Weekly Stats.html" class="btn">📊 View Weekly Stats</a>
+        <a class='btn' href='/planner'>🔙 Go Back</a>
+      </div>
     </div>
-</div>
 
-<script>
+    <script>
+      const BACKEND_URL = "https://capstone-project-3-vu1u.onrender.com";
 
-const BACKEND_URL = "https://capstone-project-3-vu1u.onrender.com";
+      window.onload = async function () {
+        const savedData = sessionStorage.getItem("timetableFormData");
 
+        if (!savedData) {
+          alert("Please fill the form first!");
+          window.location.href = "planner.html";
+          return;
+        }
 
-window.onload = async function() {
-    
-    const savedData = sessionStorage.getItem("timetableFormData");
-    
+        const data = JSON.parse(savedData);
 
-    if (!savedData) {
-        alert("Please fill the form first!");
-        window.location.href = "index.html";
-        return;
-    }
+        try {
+          const res = await fetch(`${BACKEND_URL}/timetable/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
 
-    const data = JSON.parse(savedData);
+          const result = await res.json();
 
-    try {
-    
-        const res = await fetch(`${BACKEND_URL}/timetable/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
+          document.getElementById("loading").style.display = "none";
 
-        const result = await res.json();
-        
-        
-        document.getElementById("loading").style.display = "none";
-        
-        
-        let contentBox = document.getElementById('timetableContent');
-        let htmlContent = "";
-        let days = [];
-        let currentDayObj = null;
+          let contentBox = document.getElementById("timetableContent");
+          let htmlContent = "";
+          let days = [];
+          let currentDayObj = null;
 
-        
-        result.timetable.forEach(line => {
+          result.timetable.forEach((line) => {
             if (line.includes("DAY")) {
-                if (currentDayObj) days.push(currentDayObj);
-                currentDayObj = { day: line, rows: [] };
+              if (currentDayObj) days.push(currentDayObj);
+              currentDayObj = { day: line, rows: [] };
             } else if (!line.includes("Summary:")) {
-                if (currentDayObj) currentDayObj.rows.push(line);
+              if (currentDayObj) currentDayObj.rows.push(line);
             }
-        });
-        if (currentDayObj) days.push(currentDayObj);
+          });
+          if (currentDayObj) days.push(currentDayObj);
 
-        
-        days.forEach(dayData => {
-            htmlContent += `<h3 style="background:#667eea;color:white;padding:10px;border-radius:4px;">${dayData.day}</h3>`;
+          days.forEach((dayData) => {
+            htmlContent += `<h3>${dayData.day}</h3>`;
             htmlContent += `
-            <table>
-                <tr>
-                    <th>Activity</th>
-                    <th>Time</th>
-                    <th style="text-align: center;">Done?</th>
-                </tr>`;
+                <table>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Time</th>
+                        <th style="text-align: center;">Done?</th>
+                    </tr>`;
 
-            dayData.rows.forEach(line => {
-                let parts = line.split(": ");
-                let activity = parts[0];
-                let time = parts.length > 1 ? parts[1] : "";
-                let safeLine = line.replace(/'/g, "\\'");
+            dayData.rows.forEach((line) => {
+              let parts = line.split(": ");
+              let activity = parts[0];
+              let time = parts.length > 1 ? parts[1] : "";
+              let safeLine = line.replace(/'/g, "\\'");
 
-                htmlContent += `
-                <tr>
-                    <td><strong>${activity}</strong></td>
-                    <td>${time}</td>
-                    <td style="text-align: center;">
-                        <input type="checkbox" onchange="saveProgress(this, '${safeLine}')">
-                    </td>
-                </tr>`;
+              htmlContent += `
+                    <tr>
+                        <td><strong>${activity}</strong></td>
+                        <td>${time}</td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" style="width: 20px; height: 20px; accent-color: red;" onchange="saveProgress(this, '${safeLine}')">
+                        </td>
+                    </tr>`;
             });
             htmlContent += `</table>`;
-        });
+          });
 
-        contentBox.innerHTML = htmlContent;
+          contentBox.innerHTML = htmlContent;
+        } catch (err) {
+          document.getElementById("loading").innerText =
+            "❌ Failed to connect to server. Check Render API.";
+          document.getElementById("loading").style.color = "red";
+        }
+      };
 
-    } catch (err) {
-        document.getElementById("loading").innerText = "❌ Failed to connect to server. Check Render API.";
-        document.getElementById("loading").style.color = "red";
-    }
-};
+      function saveProgress(checkbox, line) {
+        let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
+        let today = new Date().toISOString().split("T")[0];
 
+        if (!data[today]) data[today] = [];
 
-function saveProgress(checkbox, line) {
-    let data = JSON.parse(localStorage.getItem("weeklyData") || "{}");
-    let today = new Date().toISOString().split("T")[0];
+        if (checkbox.checked) {
+          if (!data[today].includes(line)) data[today].push(line);
+        } else {
+          data[today] = data[today].filter((item) => item !== line);
+        }
+        localStorage.setItem("weeklyData", JSON.stringify(data));
+      }
+    </script>
 
-    if (!data[today]) data[today] = [];
-
-    if (checkbox.checked) {
-        if (!data[today].includes(line)) data[today].push(line);
-    } else {
-        data[today] = data[today].filter(item => item !== line);
-    }
-    localStorage.setItem("weeklyData", JSON.stringify(data));
-}
-</script>
-
-</body>
-</html>>
+    <div class="footer">
+      Built with ♥ .<span>Saraswati AcadBoost</span> . AI-Powered Education
+    </div>
+  </body>
+</html>
