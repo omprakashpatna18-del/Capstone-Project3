@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -10,7 +11,7 @@
       rel="stylesheet"
     />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
       *,
       *::before,
       *::after {
@@ -28,6 +29,30 @@
         --muted: #9b84b8;
         --border: rgba(180, 100, 255, 0.2);
         --card: rgba(255, 255, 255, 0.05);
+      }
+      /* ===== Scrollbar for WebKit browsers (Chrome, Edge, Safari) ===== */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #121212; /* dark background */
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #2e2e2e; /* dark gray thumb */
+        border-radius: 6px;
+        border: 2px solid #121212; /* adds spacing effect */
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #444; /* lighter on hover */
+      }
+
+      /* ===== Scrollbar for Firefox ===== */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: #2e2e2e #121212;
       }
 
       body {
@@ -69,23 +94,22 @@
         padding: 10px 30px;
       }
 
-      .nav-logo {
-        font-size: 13px;
+      .nav-brand {
+        font-size: 15px;
         font-weight: 700;
-        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        background: lawngreen;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         letter-spacing: 0.3px;
       }
-
       .nav-links {
         display: flex;
         gap: 18px;
         list-style: none;
       }
       .nav-links a {
-        color: var(--muted);
+        color: red;
         text-decoration: none;
         font-size: 12px;
         font-weight: 500;
@@ -95,14 +119,18 @@
         color: lawngreen;
       }
       .chart-container {
-        background: var(--bg);
+        background: white;
+        border: 5px solid red;
         padding: 20px;
         margin: 40px;
         border-radius: 10px;
-        box-shadow: 0 0 20px lawngreen;
+        box-shadow: 0 0 40px red;
       }
-    
-       h2{ 
+      .h2 {
+        border: 5px solid red;
+        border-radius: 24px;
+      }
+      h2 {
         text-align: center;
         color: red;
         background: var(--bg);
@@ -111,7 +139,7 @@
         width: 300px;
         border-radius: 5px solid red;
         box-shadow: 0 0 40px solid red;
-     }
+      }
       .footer {
         position: relative;
         z-index: 1;
@@ -119,14 +147,18 @@
         text-align: center;
         margin: 30px 10px 10px 60px;
         border-bottom: 10px solid red;
+        border-top: 2px solid red;
+        border-left: 2px solid red;
+        border-right: 2px solid red;
+
         padding: 10px 10px;
-        border-top: 1px solid var(--border);
+
         font-size: 15px;
         font-weight: bold;
         color: red;
         background-color: var(--bg);
         border-radius: 20px;
-        font-family: 'Poppins' , sans-serif;
+        font-family: "Poppins", sans-serif;
       }
 
       .footer span {
@@ -138,19 +170,19 @@
   </head>
   <body>
     <nav>
-      <div class="nav-logo">✦ Saraswati AcadBoost</div>
+      <div class="nav-brand">✦ Saraswati AcadBoost</div>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="predict.html">Predictor</a></li>
-        <li><a href="AI mentor advice.html">Suggestions</a></li>
-        <li><a href="Chart.html">Dashboard</a></li>
-        <li><a href="Index.html">Get your timetable</a></li>
-        <li><a href="goal.html">Set your goal</a></li>
-        <li><a href="Bot.html">Ask Me</a></li>
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='predict.html'>Predictor</a></li>
+        <li><a href="AI Mentor Advice.html">Suggestions</a></li>
+        <li><a href='Chart.html'>Dashboard</a></li>
+        <li><a href='goal.html'>Set Goal</a></li>
+        <li><a href='Index.html'>Timetable</a></li>
+        <li><a href='Bot.html'>Ask Me</a></li>
       </ul>
     </nav>
     <div class="h2">
-    <h2>Your Performance Dashboard</h2>
+      <h2>Your Performance Dashboard</h2>
     </div>
     <div class="dashboard-grid">
       <div class="chart-container">
